@@ -1,0 +1,59 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+<p:separator class="line-separator" />
+<!-- <p:menubar id="menu" class="container"> -->
+
+<!-- 	<p:submenu label="Formularios" action="#{mtoFormulariosBBean.irAFormularios}" rendered="#{loginBBean.tienePermisos(Cons.CLAVE_ID_OPERACION_FORMULARIOS)}" > -->
+<!-- 		<p:menuitem value="Ver Formularios" action="#{mtoFormulariosBBean.irAFormularios}" rendered="#{loginBBean.tienePermisos(Cons.CLAVE_ID_OPERACION_FORMULARIOS_LISTAR_FORMULARIOS)}" /> -->
+<!-- 	</p:submenu> -->
+	
+
+<!-- 	<p:submenu label="Envíos" action="#{mtoEnviosBBean.irAEnvios}" rendered="#{loginBBean.tienePermisos(Cons.CLAVE_ID_OPERACION_ENVIOS)}"> -->
+<!-- 		<p:menuitem value="Ver Envios" action="#{mtoEnviosBBean.irAEnvios}" rendered="#{loginBBean.tienePermisos(Cons.CLAVE_ID_OPERACION_FORMULARIOS_LISTAR_ENVIOS)}" /> -->
+
+<!-- 	</p:submenu> -->
+	
+<!-- 	<p:submenu label="Usuarios"   rendered="#{loginBBean.tienePermisos(Cons.CLAVE_ID_OPERACION_USUARIOS)}"  > -->
+<!--  	       <p:menuitem value="Ver Usuarios" action="#{mtoUsuariosBBean.irAUsuarios}" rendered="#{loginBBean.tienePermisos(Cons.CLAVE_ID_OPERACION_LISTAR_USUARIOS)}"  />   -->
+<!--  	</p:submenu>  -->
+	
+<!-- 	<p:submenu label="Mantenimientos" action="#{mtoFormulariosBBean.irAFormularios}" rendered="#{loginBBean.tienePermisos(Cons.CLAVE_ID_OPERACION_MANTENIMIENTO)}"  > -->
+<!--  	       <p:menuitem value="Parámetros Generales" action="#{mtoParametrosGeneralesBBean.irAParametrosGenerales}" rendered="#{loginBBean.tienePermisos(Cons.CLAVE_ID_OPERACION_MANTENIMIENTO_PARAMETROS_GENERALES)}"  />   -->
+<!--            <p:menuitem value="Consejerías" action="#{mtoConsejeriasBBean.irAConsejerias}" rendered="#{loginBBean.tienePermisos(Cons.CLAVE_ID_OPERACION_MANTENIMIENTO_CONSEJERIAS)}"  />   -->
+ 
+<!--  	</p:submenu>  -->
+	
+
+<!-- </p:menubar> -->
+
+<p:menubar id="menu" class="container">
+
+	<p:submenu label="Formularios" action="#{mtoFormulariosBBean.irAFormularios}"  >
+		<p:menuitem value="Ver Formularios" action="#{mtoFormulariosBBean.irAFormularios}"  />
+	</p:submenu>
+	
+
+	<p:submenu label="Envíos" action="#{mtoEnviosBBean.irAEnvios}" >
+		<p:menuitem value="Ver Envios" action="#{mtoEnviosBBean.irAEnvios}"  />
+		<p:menuitem value="Descargar respuestas" action="#{mtoEnviosBBean.irAEnvios}"  />
+
+	</p:submenu>
+	
+<!-- 	<p:submenu label="Usuarios"   > -->
+<!--  	       <p:menuitem value="Ver Usuarios" action="#{mtoUsuariosBBean.irAUsuarios}" />   -->
+<!--  	</p:submenu>  -->
+	
+	<p:submenu label="Mantenimientos" action="#{mtoDepartamentosBBean.irADepartamentos}"  >
+<!--  	       <p:menuitem value="Parámetros Generales" action="#{mtoParametrosGeneralesBBean.irAParametrosGenerales}"  />   -->
+           <p:menuitem value="Departamentos" action="#{mtoDepartamentosBBean.irADepartamentos}"  />  
+ 
+ 	</p:submenu> 
+	
+
+
+</p:menubar>
+
+
+<p:separator class="line-none" />
+
+
+</html>

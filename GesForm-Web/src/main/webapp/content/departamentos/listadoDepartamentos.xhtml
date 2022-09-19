@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui" xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<ui:composition template="/content/defaultPageLayout.xhtml">
+
+
+		<ui:define name="content">
+
+<!-- 			<p:messages id="messages" showDetail="true" closable="true" showIcon="true" /> -->
+			<h:form id="formBusqueda">
+
+				<p:panel id="panelBusqueda" header="Buscador" toggleable="true" toggleSpeed="500" collapsed="true">
+					<h:panelGrid columns="4" styleClass="tablacustom">
+
+						 
+
+						<p:outputLabel for="nombre" value="Nombre Departamento" />
+						<p:inputText id="nombre" value="#{mtoDepartamentosBBean.departamentosBuscar.nombre}" />
+
+
+						 
+
+						<p:spacer />
+						<p:spacer />
+						<p:spacer />
+						<h:panelGroup style="float:right;">
+							<p:commandButton action="#{mtoDepartamentosBBean.buscar}" value="Buscar" icon="pi pi-search" update=":otherForm:listCentrosTipos"  />
+							<p:commandButton action="#{mtoDepartamentosBBean.todos}" value="Todos" icon="pi pi-refresh" update=":otherForm:listCentrosTipos, formBusqueda"  />
+						</h:panelGroup>
+					</h:panelGrid>
+				</p:panel>
+
+			</h:form>
+			<p:separator class="line-none" />
+			<h:form id="otherForm">
+				
+				<div class="d-flex justify-content-end">
+					<p:commandButton value="Nuevo" actionListener="#{mtoDepartamentosBBean.nuevo}" title="Nuevo"  icon="pi pi-plus" oncomplete="PF('dlgAlta').show();" update=":f2:dialog" />
+				</div>
+				<p:separator class="line-none" />
+
+				<div class="contenedorListado">
+
+					<p:dataTable var="parametro" value="#{mtoDepartamentosBBean.listDepartamentos}" id="listCentrosTipos" emptyMessage="No se han encontrado elementos." paginator="true" rows="10"
+						paginatorPosition="bottom">
+						<f:facet name="header">  
+		            Departamentos
+		         </f:facet>
+						<p:column headerText="Nombre" sortBy="#{parametro.nombre}">
+							<h:outputText value="#{parametro.nombre}" />
+						</p:column>
+						 
+						<p:column style="text-align:center;width:10%;">
+							<p:commandButton actionListener="#{mtoDepartamentosBBean.cargar(parametro.ide)}" icon="pi pi-pencil" title="Editar" oncomplete="PF('dlgAlta').show();" update=":f2:panelGridAlta" />
+							<p:spacer />
+							<p:spacer />
+							<p:spacer />
+						 	<p:commandButton oncomplete="PF('confirmation').show()" icon="pi pi-trash" title="Borrar" styleClass="botonCaronte">
+							 
+								<f:setPropertyActionListener value="#{parametro}" target="#{mtoDepartamentosBBean.departamentosAnadir}" />
+							</p:commandButton>
+					
+						</p:column>
+						
+						<f:facet name="footer">
+							<span class="resultado">Encontrados #{mtoDepartamentosBBean.listDepartamentos.size()} elementos</span>
+						</f:facet>
+					</p:dataTable>
+
+					<p:dialog width="500" header="Confirmar mensaje:" widgetVar="confirmation"  resizable="false" modal="true">
+						<div>
+							<i class="fas fa-info-circle icon-dark" style="font-size:1rem;"></i>
+							<p:spacer />
+							<p:spacer />
+							<p:spacer />
+							<p:outputLabel value="¿Estás seguro de querer borrar el registro?" />
+						</div>
+						<f:facet name="footer">
+							<div style="float: right;">
+								<p:commandButton value="Aceptar" actionListener="#{mtoDepartamentosBBean.borrar}" oncomplete="PF('confirmation').hide()" update="listCentrosTipos, growl"   icon="pi pi-check"/>
+								<p:commandButton value="Cancelar" onclick="PF('confirmation').hide()"   icon="pi pi-times"/>
+							</div>
+							<div class="clear" />
+						</f:facet>
+					</p:dialog>
+
+				</div>
+			</h:form>
+
+
+
+			<h:form id="f2">
+
+				<p:dialog header="Alta/Modificación de departamentos" widgetVar="dlgAlta" resizable="false" id="dialog" modal="true" width="800" >
+<!-- 					<p:messages id="messages2" showDetail="true" closable="true" showIcon="true" /> -->
+					<h:panelGrid id="panelGridAlta" columns="4" styleClass="tablacustom dialogcustom" >
+						<p:outputLabel for="nombre" value="Nombre *: " />
+						<p:inputText id="nombre" value="#{mtoDepartamentosBBean.departamentosAnadir.nombre}" maxlength="100" />
+						 
+						 
+						<p:spacer />
+						<p:spacer />
+
+					</h:panelGrid>
+					<f:facet name="footer">
+						<div style="float: right;">
+							<p:commandButton value="Cancelar" onclick="PF('dlgAlta').hide();"  icon="pi pi-times"/>
+							<p:commandButton value="Guardar" update=":otherForm:listCentrosTipos, growl"  actionListener="#{mtoDepartamentosBBean.guardar}" icon="pi pi-save"
+								oncomplete="handleLoginRequest(xhr, status, args)" />
+						</div>
+						<div class="clear" />
+					</f:facet>
+				</p:dialog>
+			</h:form>
+
+		</ui:define>
+	</ui:composition>
+</ui:composition>
+

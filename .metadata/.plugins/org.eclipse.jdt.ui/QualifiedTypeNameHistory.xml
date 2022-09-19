@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="es.tfg.gesform.negocio.FormulariosEnviosService"/>
+    <fullyQualifiedTypeName name="es.tfg.gesform.persistencia.vo.FormulariosEnviosVO"/>
+    <fullyQualifiedTypeName name="org.hibernate.criterion.Projections"/>
+    <fullyQualifiedTypeName name="org.hibernate.criterion.ProjectionList"/>
+    <fullyQualifiedTypeName name="es.tfg.gesform.persistencia.vo.FormulariosVO"/>
+    <fullyQualifiedTypeName name="es.tfg.gesform.negocio.dto.FormulariosBloquesDTO"/>
+    <fullyQualifiedTypeName name="es.tfg.gesform.persistencia.vo.FormulariosBloquesVO"/>
+    <fullyQualifiedTypeName name="es.tfg.gesform.negocio.ValoresTiposService"/>
+    <fullyQualifiedTypeName name="es.tfg.comun.constantes.Constantes"/>
+    <fullyQualifiedTypeName name="es.tfg.gesform.negocio.dto.FormulariosCamposDTO"/>
+    <fullyQualifiedTypeName name="org.primefaces.model.UploadedFile"/>
+    <fullyQualifiedTypeName name="org.apache.poi.util.IOUtils"/>
+    <fullyQualifiedTypeName name="java.io.FileOutputStream"/>
+</qualifiedTypeNameHistroy>

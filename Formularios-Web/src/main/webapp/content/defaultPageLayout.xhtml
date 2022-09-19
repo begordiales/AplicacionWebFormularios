@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui" xmlns:ui="http://java.sun.com/jsf/facelets">
+<p:importConstants type="es.tfg.comun.constantes.Constantes" var="Cons" />
+
+
+<f:view contentType="text/html" encoding="ISO-8859-1">
+
+	<ui:param name="root" value="#{request.contextPath}"  />
+
+	<h:head>
+	
+
+		<h:outputScript library="custom" name="js/primefacesLocales.js" />
+		<h:outputScript library="custom" name="js/utils.js" />
+		<h:outputStylesheet library="bootstrap" name="css/bootstrap.min.css" />
+		<h:outputStylesheet library="custom" name="css/themeCustom.css" />
+		<h:outputStylesheet library="custom" name="css/themeCustomIE.css" rendered="#{loginBBean.browserName eq 'Internet Explorer'}"/>
+		<h:outputStylesheet library="custom" name="css/style.css" />
+		<h:outputStylesheet library="custom" name="css/styleIE.css" rendered="#{loginBBean.browserName eq 'Internet Explorer'}"/>
+		<h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
+		<h:outputStylesheet library="webjars" name="font-awesome/5.12.0/css/all.min-jsf.css" />
+		<h:outputStylesheet library="webjars" name="font-awesome/5.12.0/css/v4-shims.min-jsf.css" />
+		
+		
+		
+	</h:head>
+
+
+	<h:body >
+
+		
+		<div class="container-fluid" id="supercontainer">
+			<p:growl id="growl" showDetail="true" sticky="true" />
+
+<!-- 			<div id="header"> -->
+<!-- 				<ui:insert name="header"> -->
+<!-- 					<ui:include src="header.xhtml" /> -->
+<!-- 				</ui:insert> -->
+<!-- 			</div> -->
+
+			<div class="container" id="content">
+				<ui:insert name="content" />
+			</div>
+
+<!-- 			<div id="footer"> -->
+
+<!-- 				<ui:insert name="footer"> -->
+<!-- 					<ui:include src="footer.xhtml" /> -->
+<!-- 				</ui:insert> -->
+<!-- 			</div> -->
+
+		</div>
+
+
+	</h:body>
+
+
+</f:view>
+</html>

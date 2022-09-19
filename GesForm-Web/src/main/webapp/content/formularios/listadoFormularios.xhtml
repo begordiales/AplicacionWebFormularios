@@ -1,0 +1,188 @@
+<?xml version="1.0"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui" xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<ui:composition template="/content/defaultPageLayout.xhtml">
+
+
+		<ui:define name="content">
+
+<!-- 			<p:messages id="messages" showDetail="true" closable="true" showIcon="true" /> -->
+			<h:form id="formBusqueda">
+
+				<p:panel id="panelBusqueda" header="Buscador" toggleable="true" toggleSpeed="500" collapsed="true">
+					<h:panelGrid columns="4" styleClass="tablacustom">
+
+						<p:outputLabel   for="nombre" value="Nombre:" />
+						<p:inputText   id="nombre" value="#{mtoFormulariosBBean.formularioBuscar.nombre}" />
+
+						<p:outputLabel value="Departamentos" />
+						<p:selectOneMenu  id="departamento"	value="#{mtoFormulariosBBean.formularioBuscar.departamento.ide}" style="width:220px">
+							<f:selectItem itemLabel="Seleccione..." itemValue="-1" />
+							<f:selectItems value="#{mtoFormulariosBBean.elementosDepartamentosBuscar}" />
+						</p:selectOneMenu>
+
+							<p:outputLabel for="fecha_pub_desde" value="Fecha publicación desde:" />
+						<p:calendar id="fecha_pub_desde" value="#{mtoFormulariosBBean.fechaDesde}" locale="es" showOn="button" navigator="true" pattern="dd-MM-yyyy" onkeypress="return permite(event, 'none')">
+							<p:ajax event="dateSelect" update="fecha_pub_hasta" />
+						</p:calendar>
+
+						<p:outputLabel for="fecha_pub_hasta" value="Fecha publicación hasta:" />
+						<p:calendar id="fecha_pub_hasta" value="#{mtoFormulariosBBean.fechaHasta}" locale="es" mindate="#{mtoFormulariosBBean.fechaDesde}" showOn="button" navigator="true"
+							pattern="dd-MM-yyyy" onkeypress="return permite(event, 'none')">
+							<f:attribute name="fecha_pub_desde" value="#{mtoFormulariosBBean.fechaDesde}" />
+
+						</p:calendar>
+									
+						<p:spacer />
+						<p:spacer />
+						<p:spacer />
+						<h:panelGroup style="float:right;">
+							<p:commandButton action="#{mtoFormulariosBBean.buscar}" value="Buscar" icon="pi pi-search" update=":otherForm:listFormularios"  />
+							<p:commandButton action="#{mtoFormulariosBBean.todos}" value="Todos" icon="pi pi-refresh" update=":otherForm:listFormularios, formBusqueda"  />
+						</h:panelGroup>
+					</h:panelGrid>
+				</p:panel>
+			 
+
+			</h:form>
+			<p:separator class="line-none" />
+			<h:form id="otherForm">
+				
+				<div class="d-flex justify-content-end">
+<!-- 					<p:commandButton value="Nuevo" rendered="#{loginBBean.tienePermisos(Cons.CLAVE_ID_OPERACION_NUEVO_FORMULARIO)}" actionListener="#{mtoFormulariosBBean.nuevo}" title="Nuevo"  icon="pi pi-plus" oncomplete="PF('dlgAlta').show();" update=":f2:dialog" /> -->
+					<p:commandButton value="Nuevo" action="#{mtoFormulariosBBean.nuevo}" title="Nuevo"  icon="pi pi-plus" oncomplete="PF('dlgAlta').show();" update=":f2:dialog" />
+				</div>
+				<p:separator class="line-none" />
+
+				<div class="contenedorListado">
+
+					<p:dataTable var="listFormularios" value="#{mtoFormulariosBBean.listFormularios}" id="listFormularios" emptyMessage="No se han encontrado elementos." paginator="true" rows="10"
+						paginatorPosition="bottom">
+						<f:facet name="header">  
+		             		Formularios
+		         		</f:facet>
+						<p:column headerText="Nombre" sortBy="#{listFormularios.nombre}">
+							<h:outputText value="#{listFormularios.nombre}" />
+						</p:column>
+						<p:column headerText="Departamentos" sortBy="#{listFormularios.departamento}">
+							<h:outputText value="#{listFormularios.departamento.nombre}" />
+						</p:column>
+						<p:column headerText="Descripción"  sortBy="#{listFormularios.descripcion}">
+							<h:outputText value="#{listFormularios.descripcion}" />
+						</p:column>
+						<p:column style="text-align:center;width:15%;">
+<!-- 							<p:commandButton rendered="#{loginBBean.tienePermisos(Cons.CLAVE_ID_OPERACION_EDITAR_FORMULARIO)}" actionListener="#{mtoFormulariosBBean.cargar(listFormularios.ide)}" icon="pi pi-pencil" title="Editar" oncomplete="PF('dlgAlta').show();" update=":f2:panelGridAlta" /> -->
+							<p:commandButton action="#{mtoFormulariosBBean.cargar(listFormularios.ide)}" icon="pi pi-pencil" title="Editar" oncomplete="PF('dlgAlta').show();" update=":f2:panelGridAlta" />
+							<p:spacer />
+<!-- 							<p:commandButton rendered="#{loginBBean.tienePermisos(Cons.CLAVE_ID_OPERACION_VER_DETALLE_FORMULARIO)}" actionListener="#{mtoFormulariosBBean.cargar(listFormularios.ide)}" icon="pi pi-eye" title="Ver Formulario" oncomplete="PF('dlgAlta').show();" update=":f2:panelGridAlta" /> -->
+<!-- 							<p:commandButton action="#{mtoFormulariosBBean.cargar(listFormularios.ide)}" icon="pi pi-eye" title="Ver Formulario" oncomplete="PF('dlgAlta').show();" update=":f2:panelGridAlta" /> -->
+							<p:spacer />
+							<p:spacer />
+<!-- 							<p:commandButton rendered="#{loginBBean.tienePermisos(Cons.CLAVE_ID_OPERACION_BORRAR_FORMULARIO)}" actionListener="#{mtoFormulariosBBean.cargar(listFormularios.ide)}" icon="pi pi-trash" title="Borrar" oncomplete="PF('dlgAlta').show();" update=":f2:panelGridAlta" /> -->
+							<p:commandButton actionListener="#{mtoFormulariosBBean.borrar(listFormularios.ide)}" icon="pi pi-trash" title="Borrar" update=":otherForm:listFormularios, growl" oncomplete="handleLoginRequest(xhr, status, args)" />
+
+							<p:spacer />
+<!-- 							<p:spacer /> -->
+<!-- 							<p:commandButton rendered="#{loginBBean.tienePermisos(Cons.CLAVE_ID_OPERACION_USUARIOS_ASOCIADOS)}" action="#{mtoFormulariosUsuariosBBean.irAUsuarios2(listFormularios.ide)}" icon="pi pi-users" title="Usuarios"   /> -->
+<!-- 							<p:commandButton  action="#{mtoFormulariosUsuariosBBean.irAUsuarios2(listFormularios.ide)}" icon="pi pi-users" title="Usuarios"   /> -->
+						 
+							<p:spacer />
+							<p:spacer />
+							<p:spacer />
+<!-- 							<p:commandButton rendered="#{loginBBean.tienePermisos(Cons.CLAVE_ID_OPERACION_AÑADIR_CAMPOS)}" action="#{mtoContenidosBBean.irAContenidos(listFormularios.ide)}" icon="pi pi-plus" title="Contenido"   /> -->
+							<p:commandButton action="#{mtoContenidosBBean.irAContenidos(listFormularios.ide)}" icon="pi pi-plus" title="Contenido"   />
+<!-- 							<p:commandButton actionListener="#{mtoFormulariosBBean.cargar(listFormularios.ide)}" icon="pi pi-plus" title="Editar" oncomplete="#{mtoContenidosBBean.irAContenidos}" /> -->
+					
+						</p:column>
+						
+						<f:facet name="footer">
+							<span class="resultado">Encontrados #{mtoFormulariosBBean.listFormularios.size()} elementos</span>
+						</f:facet>
+					</p:dataTable>
+
+<!-- 					<p:dialog width="500" header="Confirmar mensaje:" widgetVar="confirmation"  resizable="false" modal="true"> -->
+<!-- 						<div> -->
+<!-- 							<i class="fas fa-info-circle icon-dark" style="font-size:1rem;"></i> -->
+<!-- 							<p:spacer /> -->
+<!-- 							<p:spacer /> -->
+<!-- 							<p:spacer /> -->
+<!-- 							<p:outputLabel value="¿Estás seguro de querer borrar el registro?" /> -->
+<!-- 						</div> -->
+<!-- 						<f:facet name="footer"> -->
+<!-- 							<div style="float: right;"> -->
+<!-- 								<p:commandButton value="Aceptar" actionListener="#{mtoParametrosGeneralesBBean.borrar}" oncomplete="PF('confirmation').hide()" update="listCentrosTipos, growl"   icon="pi pi-check"/> -->
+<!-- 								<p:commandButton value="Cancelar" onclick="PF('confirmation').hide()"   icon="pi pi-times"/> -->
+<!-- 							</div> -->
+<!-- 							<div class="clear" /> -->
+<!-- 						</f:facet> -->
+<!-- 					</p:dialog> -->
+
+				</div>
+				
+				
+			</h:form>
+
+
+
+			<h:form id="f2">
+
+				<p:dialog header="Alta/Modificación de formularios" widgetVar="dlgAlta" resizable="false" id="dialog" modal="true" width="800" >
+<!-- 					<p:messages id="messages2" showDetail="true" closable="true" showIcon="true" /> -->
+					<h:panelGrid id="panelGridAlta" columns="4" styleClass="tablacustom dialogcustom" >
+						<p:outputLabel for="nombre" value="Nombre *: " />
+						<p:inputText id="nombre" value="#{mtoFormulariosBBean.formularioAnadir.nombre}" maxlength="50" />
+						
+						<p:outputLabel for="descripcion" value="Descripción: " />
+						<p:inputTextarea rows="3" cols="30" id="descripcion" maxlength="140" autoResize="false" value="#{mtoFormulariosBBean.formularioAnadir.descripcion}" />
+						
+					
+						<p:outputLabel for="url" value="URL *: " />
+						<p:inputText id="url" value="#{mtoFormulariosBBean.formularioAnadir.url}" maxlength="50" />
+						
+						<p:outputLabel value="Departamento:" />
+
+						<p:selectOneMenu id="departamento" value="#{mtoFormulariosBBean.formularioAnadir.departamento.ide}" style="width:220px">
+							<f:selectItem itemLabel="Seleccione..." itemValue="-1" />
+							<f:selectItems value="#{mtoFormulariosBBean.elementosDepartamentosAnadir}" />
+						</p:selectOneMenu>
+						
+						<p:outputLabel value="Tipo *:" />
+
+						<p:selectOneMenu id="tipo"	value="#{mtoFormulariosBBean.formularioAnadir.tipoForm.ide}" style="width:220px">
+							<f:selectItem itemLabel="Seleccione..." itemValue="-1" />
+							<f:selectItems value="#{mtoFormulariosBBean.elementosTipoForm}" />
+						</p:selectOneMenu>
+				
+						<p:outputLabel for="fecha_pub_desde" value="Fecha publicación desde *:" />
+						<p:calendar id="fecha_pub_desde" value="#{mtoFormulariosBBean.formularioAnadir.fechaIniPub}" locale="es" showOn="button" navigator="true" pattern="dd-MM-yyyy" onkeypress="return permite(event, 'none')">
+							<p:ajax event="dateSelect" update="fecha_pub_hasta" />
+						</p:calendar>
+
+						<p:outputLabel for="fecha_pub_hasta" value="Fecha publicación hasta:" />
+						<p:calendar id="fecha_pub_hasta" value="#{mtoFormulariosBBean.formularioAnadir.fechaFinPub}" locale="es" mindate="#{mtoFormulariosBBean.formularioBuscar.fechaIniPub}" showOn="button" navigator="true"
+							pattern="dd-MM-yyyy" onkeypress="return permite(event, 'none')">
+							<f:attribute name="fecha_pub_desde" value="#{mtoFormulariosBBean.formularioAnadir.fechaFinPub}" />
+						</p:calendar>
+						
+						<p:spacer />
+						<p:spacer />
+
+					</h:panelGrid>
+					<f:facet name="footer">
+						<div style="float: right;">
+							<p:commandButton value="Cancelar" styleClass="botonCaronte" action="#{mtoFormulariosBBean.irAFormularios}"  icon="pi pi-times" />
+							<p:commandButton value="Guardar" update=":otherForm:listFormularios, growl"  actionListener="#{mtoFormulariosBBean.guardar}" icon="pi pi-save"
+								oncomplete="handleLoginRequest(xhr, status, args)" />
+						</div>
+						<div class="clear" />
+					</f:facet>
+				</p:dialog>
+			</h:form>
+			
+			
+
+		</ui:define>
+	</ui:composition>
+</ui:composition>
+

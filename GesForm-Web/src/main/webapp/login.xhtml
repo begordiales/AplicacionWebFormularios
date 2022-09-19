@@ -1,0 +1,43 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui" xmlns:ui="http://java.sun.com/jsf/facelets">
+
+
+<body>
+
+	<ui:composition template="/content/loginLayout.xhtml">
+		<ui:define name="content">
+			<h:body>
+				<h:form>
+					<div class="container ">
+						<div class="row">
+							<div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+								<div class="card shadow-lg rounded my-5">
+									<div class="card-header bold-primary-dark"><i class="fas fa-unlock-alt" style="font-size: 1.5rem;margin-right: 20px;"></i>Iniciar sesión</div>
+									<div class="card-body">
+										<p:messages id="messages" showDetail="false" closable="false" style="width:100%;" globalOnly="true" showIcon="false" /> 
+										<div class="card-title primary-dark">Introduzca su usuario y contraseña:</div> 
+										<p:separator class="line-spacer" /> 
+										<div>
+											<p:inputText styleClass="form-control primary-dark" value="#{loginBBean.username}"  placeholder="Usuario" />
+										</div>
+										<p:separator class="line-spacer" /> <p:separator class="line-spacer" />
+										<div>
+											<p:password id="password" styleClass="form-control primary-dark" value="#{loginBBean.password}"  placeholder="Contraseña" />
+										</div>
+										<p:separator class="line-spacer" /> <p:separator class="line-spacer" /> 
+										<p:commandButton value="Acceder" id="login_buttom" action="#{loginBBean.login()}" update="grid,messages" styleClass="btn btn-large btn-block text-uppercase bold" ajax="false" />
+										<p:separator class="line-spacer" /> 
+										<p:separator class="line-spacer" />
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</h:form>
+
+			</h:body>
+		</ui:define>
+	</ui:composition>
+</body>
+</html>  

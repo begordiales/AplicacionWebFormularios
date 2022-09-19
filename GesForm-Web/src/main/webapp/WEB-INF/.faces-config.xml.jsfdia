@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:#content#error.xhtml"
+  PATH="/content/error.xhtml" SHAPE="240,33,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#login.xhtml" PATH="/login.xhtml"
+  SHAPE="272,209,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#login.xhtml:0" NAME="item"
+   PATH="/login.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="exito::#content#paginaPrincipal.xhtml"
+    NAME="output" PATH="/content/paginaPrincipal.xhtml"
+    TARGET="rules:#content#paginaPrincipal.xhtml" TITLE="exito" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM
+  NAME="rules:#content#solicitudes#listadoSolicitudes.xhtml"
+  PATH="/content/solicitudes/listadoSolicitudes.xhtml"
+  SHAPE="272,321,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM
+   ID="rules:#content#solicitudes#listadoSolicitudes.xhtml:0"
+   NAME="item" PATH="/content/solicitudes/listadoSolicitudes.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="detalle::#content#solicitudes#detalleSolicitud.xhtml"
+    NAME="output" PATH="/content/solicitudes/detalleSolicitud.xhtml"
+    TARGET="rules:#content#solicitudes#detalleSolicitud.xhtml"
+    TITLE="detalle" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="documentos::#content#solicitudes#detalleDocumentos.xhtml"
+    NAME="output1" PATH="/content/solicitudes/detalleDocumentos.xhtml"
+    TARGET="rules:#content#solicitudes#detalleDocumentos.xhtml"
+    TITLE="documentos" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="historico::#content#solicitudes#detalleHistoricos.xhtml"
+    NAME="output2" PATH="/content/solicitudes/detalleHistoricos.xhtml"
+    TARGET="rules:#content#solicitudes#detalleHistoricos.xhtml"
+    TITLE="historico" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#content#solicitudes#detalleSolicitud.xhtml"
+  PATH="/content/solicitudes/detalleSolicitud.xhtml" SHAPE="512,305,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#content#solicitudes#detalleSolicitud.xhtml:0"
+   NAME="item" PATH="/content/solicitudes/detalleSolicitud.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="documentos::#content#solicitudes#detalleDocumentos.xhtml"
+    NAME="output" PATH="/content/solicitudes/detalleDocumentos.xhtml"
+    TARGET="rules:#content#solicitudes#detalleDocumentos.xhtml"
+    TITLE="documentos" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="historico::#content#solicitudes#detalleHistoricos.xhtml"
+    NAME="output1" PATH="/content/solicitudes/detalleHistoricos.xhtml"
+    TARGET="rules:#content#solicitudes#detalleHistoricos.xhtml"
+    TITLE="historico" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#content#solicitudes#detalleHistoricos.xhtml"
+  PATH="/content/solicitudes/detalleHistoricos.xhtml"
+  SHAPE="512,481,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM
+   ID="rules:#content#solicitudes#detalleHistoricos.xhtml:0" NAME="item"
+   PATH="/content/solicitudes/detalleHistoricos.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="detalle::#content#solicitudes#detalleSolicitud.xhtml"
+    NAME="output" PATH="/content/solicitudes/detalleSolicitud.xhtml"
+    TARGET="rules:#content#solicitudes#detalleSolicitud.xhtml"
+    TITLE="detalle" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#content#solicitudes#detalleDocumentos.xhtml"
+  PATH="/content/solicitudes/detalleDocumentos.xhtml"
+  SHAPE="736,321,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM
+   ID="rules:#content#solicitudes#detalleDocumentos.xhtml:0" NAME="item"
+   PATH="/content/solicitudes/detalleDocumentos.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="detalle::#content#solicitudes#detalleSolicitud.xhtml"
+    NAME="output" PATH="/content/solicitudes/detalleSolicitud.xhtml"
+    TARGET="rules:#content#solicitudes#detalleSolicitud.xhtml"
+    TITLE="detalle" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#content#paginaPrincipal.xhtml"
+  PATH="/content/paginaPrincipal.xhtml" SHAPE="512,193,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:*" PATH="*" SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:0" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="error::#content#error.xhtml" NAME="output"
+    PATH="/content/error.xhtml" TARGET="rules:#content#error.xhtml"
+    TITLE="error" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="salir::#login.xhtml" NAME="output1"
+    PATH="/login.xhtml" TARGET="rules:#login.xhtml" TITLE="salir" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="solicitudes::#content#solicitudes#listadoSolicitudes.xhtml"
+    NAME="output2" PATH="/content/solicitudes/listadoSolicitudes.xhtml"
+    TARGET="rules:#content#solicitudes#listadoSolicitudes.xhtml"
+    TITLE="solicitudes" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="paginaPrincipal::#content#paginaPrincipal.xhtml" NAME="output3"
+    PATH="/content/paginaPrincipal.xhtml"
+    TARGET="rules:#content#paginaPrincipal.xhtml"
+    TITLE="paginaPrincipal" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="parametros::#content#parametrosgenerales#listadoParametrosGenerales.xhtml"
+    NAME="output4"
+    PATH="/content/parametrosgenerales/listadoParametrosGenerales.xhtml"
+    TARGET="rules:#content#parametrosgenerales#listadoParametrosGenerales.xhtml"
+    TITLE="parametros" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="tipos::#content#tipos#listadoTipos.xhtml"
+    NAME="output5" PATH="/content/tipos/listadoTipos.xhtml"
+    TARGET="rules:#content#tipos#listadoTipos.xhtml" TITLE="tipos" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM
+  NAME="rules:#content#parametrosgenerales#listadoParametrosGenerales.xhtml"
+  PATH="/content/parametrosgenerales/listadoParametrosGenerales.xhtml"
+  SHAPE="304,561,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#content#tipos#listadoTipos.xhtml"
+  PATH="/content/tipos/listadoTipos.xhtml" SHAPE="304,593,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#content#tipos#listadoTipos.xhtml:0"
+   NAME="item" PATH="/content/tipos/listadoTipos.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="nuevo::#content#tipos#editarTipos.xhtml"
+    NAME="output" PATH="/content/tipos/editarTipos.xhtml"
+    TARGET="rules:#content#tipos#editarTipos.xhtml" TITLE="nuevo" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#content#tipos#editarTipos.xhtml"
+  PATH="/content/tipos/editarTipos.xhtml" SHAPE="544,577,0,0" model-entity="JSFProcessGroup"/>
+</PROCESS>

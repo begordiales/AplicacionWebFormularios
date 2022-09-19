@@ -1,0 +1,166 @@
+<?xml version="1.0"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui" xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<ui:composition template="/content/defaultPageLayout.xhtml">
+
+
+		<ui:define name="content">
+
+<!-- 			<p:messages id="messages" showDetail="true" closable="true" showIcon="true" /> -->
+			<h:form id="formBusqueda">
+				<p:panel id="panelBusqueda" header="Buscador" toggleable="true" toggleSpeed="500" collapsed="true">
+					<h:panelGrid columns="4" styleClass="tablacustom">
+
+<!-- 						<p:outputLabel for="formularios" value="Nombre:" /> -->
+<!-- 						<p:inputText id="formulario" value="#{mtoEnviosBBean.envioBuscar.formulario}" /> -->
+
+						<p:outputLabel value="Formulario:" />
+
+						<p:selectOneMenu id="formularios"	value="#{mtoEnviosBBean.envioBuscar.idForm}" style="width:220px">
+							<f:selectItem itemLabel="Seleccione..." itemValue="-1" />
+							<f:selectItems value="#{mtoEnviosBBean.elementosFormulariosBuscar}" />
+						</p:selectOneMenu>
+
+							<p:outputLabel for="fecha_envio_desde" value="Fecha envío desde:" />
+						<p:calendar id="fecha_envio_desde" value="#{mtoEnviosBBean.fechaEnvioDesde}" locale="es" showOn="button" navigator="true" pattern="dd-MM-yyyy" onkeypress="return permite(event, 'none')">
+							<p:ajax event="dateSelect" update="fecha_envio_hasta" />
+						</p:calendar>
+
+						<p:outputLabel for="fecha_envio_hasta" value="Fecha envío hasta:" />
+						<p:calendar id="fecha_envio_hasta" value="#{mtoEnviosBBean.fechaEnvioHasta}" locale="es" mindate="#{mtoEnviosBBean.fechaEnvioDesde}" showOn="button" navigator="true"
+							pattern="dd-MM-yyyy" onkeypress="return permite(event, 'none')">
+							<f:attribute name="fecha_envio_desde" value="#{mtoEnviosBBean.fechaEnvioHasta}" />
+						</p:calendar>
+						<p:spacer />
+						<p:spacer />
+						<p:spacer />
+						<p:spacer />
+						<p:spacer />
+						<h:panelGroup style="float:right;">
+							<p:commandButton action="#{mtoEnviosBBean.buscar}" value="Buscar" icon="pi pi-search" update=":otherForm:listEnvios"  />
+							<p:commandButton action="#{mtoEnviosBBean.todos}" value="Todos" icon="pi pi-refresh" update=":otherForm:listEnvios, formBusqueda"  />
+						</h:panelGroup>
+					</h:panelGrid>
+				</p:panel>
+
+			</h:form>
+			<p:separator class="line-none" />
+			<h:form id="otherForm">
+				
+				<p:separator class="line-none" />
+
+				<div class="contenedorListado">
+
+					<p:dataTable var="listEnvios" value="#{mtoEnviosBBean.listEnvios}" id="listEnvios" emptyMessage="No se han encontrado elementos." paginator="true" rows="10"
+						paginatorPosition="bottom">
+						<f:facet name="header">  
+		             Envíos
+		         </f:facet>
+						<p:column headerText="Formulario" sortBy="#{listEnvios.nombreForm}">
+							<h:outputText value="#{listEnvios.nombreForm}" />
+						</p:column>
+						<p:column headerText="Envio" sortBy="#{listEnvios.ide}">
+							<h:outputText value="#{listEnvios.ide}" />
+						</p:column>
+						<p:column headerText="Fecha envio"  sortBy="#{listEnvios.fechaEnvio}">
+							<h:outputText value="#{listEnvios.fechaEnvio}">
+								<f:convertDateTime type="date" pattern="dd-MM-yyyy HH:mm:ss" />
+							</h:outputText>
+						</p:column>
+						<p:column style="text-align:center;width:10%;">
+							<p:commandButton action="#{mtoEnviosBBean.cargarRespuestas(listEnvios.ide)}" icon="pi pi-eye" title="Ver" />
+							<p:commandButton action="#{mtoEnviosBBean.cargarRespuestas(listEnvios.ide)}" icon="pi pi-download" title="Ver" />
+<!-- 							<p:commandButton actionListener="#{mtoEnviosBBean.cargar(listEnvios.ide)}" icon="pi pi-pencil" title="Editar" oncomplete="PF('dlgAlta').show();" update=":f2:panelGridAlta" /> -->
+<!-- 							<p:spacer /> -->
+<!-- 							<p:spacer /> -->
+<!-- 							<p:spacer /> -->
+<!-- 							<p:commandButton action="#{mtoEnviosBBean.irAContenidos(listFormularios.ide)}" icon="pi pi-plus" title="Contenido"   /> -->
+					
+						</p:column>
+						
+						<f:facet name="footer">
+							<span class="resultado">Encontrados #{mtoEnviosBBean.listEnvios.size()} elementos</span>
+						</f:facet>
+					</p:dataTable>
+
+<!-- 					<p:dialog width="500" header="Confirmar mensaje:" widgetVar="confirmation"  resizable="false" modal="true"> -->
+<!-- 						<div> -->
+<!-- 							<i class="fas fa-info-circle icon-dark" style="font-size:1rem;"></i> -->
+<!-- 							<p:spacer /> -->
+<!-- 							<p:spacer /> -->
+<!-- 							<p:spacer /> -->
+<!-- 							<p:outputLabel value="¿Estás seguro de querer borrar el registro?" /> -->
+<!-- 						</div> -->
+<!-- 						<f:facet name="footer"> -->
+<!-- 							<div style="float: right;"> -->
+<!-- 								<p:commandButton value="Aceptar" actionListener="#{mtoParametrosGeneralesBBean.borrar}" oncomplete="PF('confirmation').hide()" update="listCentrosTipos, growl"   icon="pi pi-check"/> -->
+<!-- 								<p:commandButton value="Cancelar" onclick="PF('confirmation').hide()"   icon="pi pi-times"/> -->
+<!-- 							</div> -->
+<!-- 							<div class="clear" /> -->
+<!-- 						</f:facet> -->
+<!-- 					</p:dialog> -->
+
+				</div>
+			</h:form>
+
+
+
+			<h:form id="f2">
+
+				<p:dialog header="Alta/Modificación de formularios" widgetVar="dlgAlta" resizable="false" id="dialog" modal="true" width="800" >
+<!-- 					<p:messages id="messages2" showDetail="true" closable="true" showIcon="true" /> -->
+					<h:panelGrid id="panelGridAlta" columns="4" styleClass="tablacustom dialogcustom" >
+						<p:outputLabel for="nombre" value="Nombre *: " />
+						<p:inputText id="nombre" value="#{mtoFormulariosBBean.formularioAnadir.nombre}" maxlength="50" />
+						
+						<p:outputLabel for="descripcion" value="Descripción: " />
+						<p:inputTextarea rows="3" cols="30" id="descripcion" maxlength="140" autoResize="false" value="#{mtoFormulariosBBean.formularioAnadir.descripcion}" />
+
+						
+						<p:outputLabel for="url" value="URL *: " />
+						<p:inputText id="url" value="#{mtoFormulariosBBean.formularioAnadir.url}" maxlength="50" />
+						
+						<p:outputLabel value="Departamento:" />
+
+						<p:selectOneMenu id="departamenot" value="#{mtoFormulariosBBean.formularioAnadir.departamento.ide}" style="width:220px">
+							<f:selectItem itemLabel="Seleccione..." itemValue="-1" />
+							<f:selectItems value="#{mtoFormulariosBBean.elementosDepartamentosAnadir}" />
+						</p:selectOneMenu>
+						
+						<p:outputLabel value="Tipo *:" />
+
+						<p:selectOneMenu id="tipo"	value="#{mtoFormulariosBBean.formularioAnadir.tipoForm.ide}" style="width:220px">
+							<f:selectItem itemLabel="Seleccione..." itemValue="-1" />
+							<f:selectItems value="#{mtoFormulariosBBean.elementosTipoForm}" />
+						</p:selectOneMenu>
+				
+						<p:outputLabel for="fecha_pub_desde" value="Fecha publicación desde:" />
+						<p:calendar id="fecha_pub_desde" value="#{mtoFormulariosBBean.formularioAnadir.fechaIniPub}" locale="es" showOn="button" navigator="true" pattern="dd-MM-yyyy" onkeypress="return permite(event, 'none')">
+							<p:ajax event="dateSelect" update="fecha_pub_hasta" />
+						</p:calendar>
+
+						<p:outputLabel for="fecha_pub_hasta" value="Fecha publicación hasta:" />
+						<p:calendar id="fecha_pub_hasta" value="#{mtoFormulariosBBean.formularioAnadir.fechaFinPub}" locale="es" mindate="#{mtoFormulariosBBean.formularioBuscar.fechaIniPub}" showOn="button" navigator="true"
+							pattern="dd-MM-yyyy" onkeypress="return permite(event, 'none')">
+							<f:attribute name="fecha_pub_desde" value="#{mtoFormulariosBBean.formularioAnadir.fechaFinPub}" />
+						</p:calendar>
+						
+						<p:spacer />
+						<p:spacer />
+
+					</h:panelGrid>
+					<f:facet name="footer">
+						<div style="float: right;">
+							<p:commandButton value="Cancelar" styleClass="botonCaronte" action="#{mtoEnviosBBean.irAEnvios}"  icon="pi pi-times" />
+<!-- 							<p:commandButton value="Guardar" update=":otherForm:listFormularios, growl"  actionListener="#{mtoFormulariosBBean.guardar}" icon="pi pi-save"	oncomplete="handleLoginRequest(xhr, status, args)" /> -->
+						</div>
+						<div class="clear" />
+					</f:facet>
+				</p:dialog>
+			</h:form>
+
+		</ui:define>
+	</ui:composition>
+</ui:composition>
+

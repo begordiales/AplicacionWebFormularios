@@ -1,0 +1,67 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+<h:body>
+	<h:form id="form_menu">
+		<div class="row header pt-4 ">
+
+			<div class="col-lg-3 col-md-6 col-sm-6 col-xs-4 d-flex d-flex justify-content-start align-items-start">
+				<h:graphicImage library="custom" name="img/logo_unir.png" width="260px" />
+			</div>
+
+			<div class="col-lg-6 col-md-12 col-sm-12 col-xs-8 d-flex justify-content-center align-items-start">
+<!-- 				<p:link outcome="paginaPrincipal"> -->
+<!-- 					<div class="titulo_header_custom"> -->
+<!-- 						GesForm -->
+<!--  						<h:outputText value=" # { loginBBean.entorno} " styleClass="entorno" />  -->
+<!-- 					</div> -->
+<!-- 				</p:link> -->
+				<p:link outcome="paginaPrincipal">
+				<div class="titulo_header_custom">Plataforma de gestión de formularios dinámicos</div> 
+				</p:link> 
+			</div>
+
+<!-- 			<div class="col-lg-3 col-md-6 col-sm-6 col-xs-4 d-flex justify-content-center align-items-start"> -->
+<!-- 				<h:graphicImage library="custom" name="img/logo.png" width="150px" /> -->
+<!-- 			</div> -->
+
+			<div class="col-lg-3 col-md-6 col-sm-6 col-xs-4 d-flex justify-content-start align-items-start">
+				<div class="card shadow rounded w-100">
+					<div class="card-body row">
+						<div class="col-10 row">
+							<div class="col-2 pr-0">
+								<i class="fas fa-user icon_cabecera" title="Usuario"></i>
+							</div>
+							<div class="col-10 pl-0 primary-dark">
+<!-- 								<p:outputPanel rendered=" # {!empty loginBBean}"> -->
+<!-- 									<h:outputText value=" # {loginBBean.username} "  /> -->
+<!-- 								</p:outputPanel> -->
+							</div>
+							<div class="col-2 pr-0">
+								<i class="fas fa-id-card icon_cabecera" title="Perfil"></i>
+							</div>
+							<div class="col-10 pl-0 primary-dark">
+<!-- 								 <p:outputPanel rendered=" #{ !empty loginBBean}"> -->
+<!-- 									 <h:outputText value=" #{ loginBBean.nombrePerfil} "/>  -->
+<!-- 								</p:outputPanel>  -->
+							</div>
+
+						</div>
+						<div class="col-2 d-flex justify-content-center align-items-center">
+							<p:commandLink action=" # {loginBBean.doLogout}" ajax="false" title="Salir">
+								<i class="fas fa-sign-out-alt icon_cabecera icon_large"></i>
+							</p:commandLink>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+			<ui:include src="/content/menu.xhtml" />
+
+	</h:form>
+
+
+	
+
+</h:body>
+</html>

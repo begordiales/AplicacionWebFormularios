@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+
+<f:view>
+
+	<ui:param name="root" value="#{request.contextPath}" />
+
+	<h:head>
+	    
+	
+		 <link href="#{root}/css/estilos.css" rel="stylesheet" />
+		 
+  		
+		<!-- Compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css" />
+        <!--Import jQuery before materialize.js-->
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <!-- Compiled and minified JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+			
+
+	</h:head>
+
+	<h:body>
+
+		<div class="container contenido_fondo">
+
+			<div id="header">
+				<ui:insert name="header">
+					<ui:include src="headerLogin.xhtml" />
+				</ui:insert>
+			</div>
+
+			<div  id="content" >
+				<ui:insert name="content" />
+			</div>
+
+			<br/>
+			
+			<div id="footer">
+				<ui:insert name="footer">
+					<ui:include src="footer.xhtml" />
+				</ui:insert>
+			</div>
+
+			<f:facet name="last">
+				<h:outputStylesheet name="css/bootstrap.min.css" />
+				<h:outputStylesheet name="css/bootstrap-theme.min.css" />
+				<h:outputStylesheet name="css/bootstrap-primefaces-custom.css" />
+			</f:facet>
+
+		</div>
+
+	</h:body>
+
+</f:view>
+</html>

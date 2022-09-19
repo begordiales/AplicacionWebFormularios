@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<faces-config version="2.3"
+xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_3.xsd">
+
+	<application>
+		<message-bundle>resources.application</message-bundle>
+
+		<el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
+		<locale-config>
+			<default-locale>es</default-locale>
+		</locale-config>
+		<locale-config>
+			<default-locale>en</default-locale>
+		</locale-config>
+
+		<resource-bundle>
+			<base-name>messages</base-name>
+			<var>msg</var>
+		</resource-bundle>
+
+	</application>
+
+	<factory>
+		<exception-handler-factory>es.tfg.gesform.comun.excepciones.CustomExceptionHandlerFactory</exception-handler-factory>
+	</factory>
+
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>error</from-outcome>
+			<to-view-id>/content/error.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+		<navigation-case>
+			<from-outcome>salir</from-outcome>
+			<to-view-id>/login.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+		<navigation-case>
+			<from-outcome>solicitudes</from-outcome>
+			<to-view-id>/content/solicitudes/listadoSolicitudes.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+		<navigation-case>
+			<from-outcome>paginaPrincipal</from-outcome>
+			<to-view-id>/content/paginaPrincipal.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+		<navigation-case>
+			<from-outcome>formularios</from-outcome>
+			<to-view-id>/content/formularios/listadoFormularios.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>envios</from-outcome>
+			<to-view-id>/content/envios/listadoEnvios.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+
+		<navigation-case>
+			<from-outcome>contenidos</from-outcome>
+			<to-view-id>/content/contenidos/menuContenidos.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>departamentos</from-outcome>
+			<to-view-id>/content/departamentos/listadoDepartamentos.xhtml</to-view-id>
+		</navigation-case>
+	 			
+	</navigation-rule>
+	
+	
+	<navigation-rule>
+		<from-view-id>/content/envios/listadoEnvios.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>respuesta</from-outcome>
+			<to-view-id>/content/envios/verRespuestasEnvio.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+			 
+	</navigation-rule>
+
+	<navigation-rule>
+		<from-view-id>/login.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>exito</from-outcome>
+			<to-view-id>/content/paginaPrincipal.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+	</navigation-rule>
+
+</faces-config>

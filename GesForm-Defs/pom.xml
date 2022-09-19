@@ -1,0 +1,29 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>es.tfg</groupId>
+	<artifactId>GesForm-Defs</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<properties>
+		<servlet-api.version>3.0.1</servlet-api.version>
+		<faces-api.version>2.3</faces-api.version>
+		<primefaces.version>7.0</primefaces.version>
+<!-- 		<themes.version>1.0.10</themes.version> -->
+		<log4j.version>1.2.17</log4j.version>
+		<gesform.version>0.0.1-SNAPSHOT</gesform.version>
+		<spring.version>4.3.9.RELEASE</spring.version>
+		<hibernate.version>5.2.0.Final</hibernate.version>
+		<myfaces.version>2.2.8</myfaces.version>
+		<junit.version>4.12</junit.version>
+		<jta.version>1.1</jta.version>
+		<xmlsec.version>1.4.0</xmlsec.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<axis2.version>1.4.1</axis2.version>
+		<axis1.version>1.4</axis1.version>
+		<wssecurity.version>1.5.6</wssecurity.version>
+		<bcprov.version>1.59</bcprov.version>
+		<jasperreports.version>5.6.0</jasperreports.version>
+	</properties>
+</project>

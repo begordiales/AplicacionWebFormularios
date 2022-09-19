@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
+<body>
+	<ui:composition template="/content/defaultPageLayout.xhtml">
+		<ui:define class="container" name="content">
+		
+		
+<h:outputText value="#{cargarFormularioBBean.formulario}"></h:outputText>
+
+<!-- DOS COLUMNAS -->
+<h:form id="formrespuesta" prependId="false" acceptcharset="ISO-8859-1" enctype="multipart/form-data">
+				<p:repeat value="#{cargarFormularioBBean.contenidoBuscar.bloques}" var="bloque">
+				<!--  BLOQUE TITULO -->
+
+<!-- ESTO ES LO QUE VALE -->
+						       		<p:repeat value="#{bloque.campos}" var="campo" varStatus="estado" offset="#{estado.index}" >
+						       			<h:outputText value="#{campo.valor}"  rendered="#{bloque.codigoPlantilla eq Cons.PLANTILLA_TITULO}" class="tituloFormulario"/>
+						       		</p:repeat>
+<!-- HASTA AQUI ES LO QUE VALE						       		 -->
+
+<!-- 						<div class="row" > -->						
+<!-- 						<p:fieldset class="fieldsetTitulo" rendered="#{bloque.codigoPlantilla eq Cons.PLANTILLA_TITULO}" > -->
+<!-- 							<div class="row"> -->
+<!-- 								<p:repeat value="#{bloque.campos}" var="campo" varStatus="estado" offset="#{estado.index}" > -->
+<!-- 									<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12" > -->
+<!-- 										<h:graphicImage library="custom" name="img/logo_unir.png" width="160px" rendered="#{bloque.codigoPlantilla eq Cons.PLANTILLA_TITULO}"/> -->
+<!-- 									</div>	 -->
+										
+<!-- 									<div class="col-lg-9 col-md-9 col-sm-6 col-xs-12" > -->
+<!-- 										<h:outputText value="#{campo.valor}"  rendered="#{bloque.codigoPlantilla eq Cons.PLANTILLA_TITULO}" class="tituloFormulario"/> -->
+<!-- 									</div> -->
+										
+											
+<!-- 								</p:repeat>	 -->
+<!-- 							</div> -->
+<!-- 						</p:fieldset> -->
+<!-- 						</div>				 -->
+
+					
+					<!--  BLOQUE RGPD -->
+<!-- 					<p:fieldset  legend=" {bloque.nombre}" rendered=" {bloque.columnas eq '0' and bloque.idPlantilla ne '1'}"  style="margin-bottom:20px;"> -->
+						<div class="row"  >
+							<p:dataTable var="campo" value="#{bloque.campos}" rendered="#{bloque.codigoPlantilla eq Cons.PLANTILLA_RGPD}">	
+							<f:facet name="header">#{bloque.nombre} </f:facet>						
+								<p:column display="none" width="20%"><h:outputText value="#{campo.etiqueta}" /></p:column>
+								<p:column display="none"><h:outputText value="#{campo.valor}" /></p:column>
+								   
+							</p:dataTable>
+						</div>
+<!-- 					</p:fieldset> -->
+					
+					<!-- DOS COLUMNAS -->
+					<div class="row" >
+					<p:fieldset legend="#{bloque.nombre}" rendered="#{bloque.columnas eq Cons.DOS_COLUMNAS}" >
+								<div class="row" >
+						       		<p:repeat value="#{bloque.campos}" var="campo" varStatus="estado" offset="#{estado.index}" >
+						       		<!-- <p:inputText value="#{campo.ide}" id="hiddenfield" type="hidden"/>-->
+<!-- 						       			<div class="col-2"> -->
+<!-- 						       				<p:outputLabel  value="#{campo.etiqueta} *" class="bold-primary" style="display: block" rendered="#{campo.obligatorio == 1}"/> -->
+<!-- 											<p:outputLabel  value="#{campo.etiqueta}" class="bold-primary" style="display: block" rendered="#{campo.obligatorio == 0}"/> -->
+<!-- 						       			</div> -->
+						       				<div class="col-6">
+							       				<p:outputLabel  value="#{campo.etiqueta} *" class="labelForm"  rendered="#{campo.obligatorio == 1}"/>
+												<p:outputLabel  value="#{campo.etiqueta}" class="labelForm"  rendered="#{campo.obligatorio == 0}"/>
+												<p:inputText value="#{campo.respuesta}"	maxlength="#{campo.tamano}" style="width:80%" rendered="#{campo.codigoTipoCampo eq Cons.VALORES_TIPOS_CAMPO_TEXTO or campo.codigoTipoCampo eq Cons.VALORES_TIPOS_CAMPO_NUMERICO}"/>
+												<p:calendar value="#{campo.respuesta}" locale="es" showOn="button" navigator="true" pattern="dd-MM-yyyy" onkeypress="return permite(event, 'none')"  rendered="#{campo.codigoTipoCampo eq Cons.VALORES_TIPOS_CAMPO_FECHA}"/>
+												<p:selectOneMenu  value="#{campo.respuesta}" style="width:200px" rendered="#{campo.codigoTipoCampo eq Cons.VALORES_TIPOS_CAMPO_SELECT}">
+										            <f:selectItem itemLabel="Seleccione..." itemValue="" />
+										            <f:selectItems value="#{campo.listaopciones}"  />
+										        </p:selectOneMenu>
+										        <p:selectOneRadio  value="#{campo.respuesta}" layout="responsive" columns="3" rendered="#{campo.codigoTipoCampo eq Cons.VALORES_TIPOS_CAMPO_RADIO}">
+											        <f:selectItems value="#{campo.listaopciones}" />
+											    </p:selectOneRadio>											    
+											    <p:selectManyCheckbox value="#{campo.respuesta}" columns="1" rendered="#{campo.codigoTipoCampo eq Cons.VALORES_TIPOS_CAMPO_CHECK}">
+													<f:selectItems value="#{campo.listaopciones}" itemLabel="#{label}" itemValue="#{value}" />
+												</p:selectManyCheckbox>
+<!-- 												<p:fileUpload label="Examinar" listener="#{cargarFormularioBBean.handleFileUpload}" mode="advanced" dragDropSupport="false" -->
+<!--                      								 multiple="true" update="messages" sizeLimit="#{campo.tamanofichero}" fileLimit="#{campo.numficheros}" -->
+<!--                       								allowTypes="#{campo.tiposfichero}" rendered="#{campo.codigoTipoCampo eq Cons.VALORES_TIPOS_CAMPO_FILE}"/> -->
+
+<!--         										<p:inputText id="messages" showDetail="true" keepAlive="true" rendered="#{campo.codigoTipoCampo eq Cons.VALORES_TIPOS_CAMPO_FILE}" /> -->
+												
+											</div>
+						       		</p:repeat>
+					       		</div>
+					</p:fieldset>
+					</div>
+					<!-- UNA COLUMNA -->
+					<div class="row" >
+					<p:fieldset legend="#{bloque.nombre}" rendered="#{bloque.columnas eq Cons.UNA_COLUMNA}" >
+								<div class="row" >
+						       		<p:repeat value="#{bloque.campos}" var="campo" varStatus="estado" offset="#{estado.index}" >
+						       				<div class="col-10">
+						       				<p:outputLabel  value="#{campo.etiqueta} *" class="labelForm" style="display: block" rendered="#{campo.obligatorio == 1}"/>
+											<p:outputLabel  value="#{campo.etiqueta}" class="labelForm" style="display: block" rendered="#{campo.obligatorio == 0}"/>
+												<p:inputText value="" 	maxlength="#{campo.tamano}" style="width:80%" rendered="#{campo.codigoTipoCampo eq Cons.VALORES_TIPOS_CAMPO_TEXTO or campo.codigoTipoCampo eq Cons.VALORES_TIPOS_CAMPO_NUMERICO}"/>
+												<p:calendar value="#{campo.respuesta}" locale="es" showOn="button" navigator="true" pattern="dd-MM-yyyy" onkeypress="return permite(event, 'none')"  rendered="#{campo.codigoTipoCampo eq Cons.VALORES_TIPOS_CAMPO_FECHA}"/>
+												<p:selectOneMenu  value="#{campo.respuesta}" style="width:125px" rendered="#{campo.codigoTipoCampo eq Cons.VALORES_TIPOS_CAMPO_SELECT}">
+										            <f:selectItem itemLabel="Seleccione..." itemValue="-1" />
+										            <f:selectItems value="#{campo.listaopciones}"  />
+										        </p:selectOneMenu>
+										        <p:selectOneRadio  value="#{campo.respuesta}" layout="responsive" columns="1" rendered="#{campo.codigoTipoCampo eq Cons.VALORES_TIPOS_CAMPO_RADIO}">
+											        <f:selectItems value="#{campo.listaopciones}" />
+											    </p:selectOneRadio>											    
+											    <p:selectManyCheckbox value="#{campo.respuesta}" columns="1" rendered="#{campo.codigoTipoCampo eq Cons.VALORES_TIPOS_CAMPO_CHECK}">
+													<f:selectItems value="#{campo.listaopciones}" var="car" itemLabel="#{label}" itemValue="#{value}" />
+												</p:selectManyCheckbox>
+<!-- 												<p:fileUpload label="Examinar" auto="false" value="#{campo.respuesta}" mode="simple" skinSimple="true" multiple="false"  -->
+												
+<!-- 												rendered="#{campo.codigoTipoCampo eq Cons.VALORES_TIPOS_CAMPO_FILE}"/> -->
+<!-- allowTypes="#{campo.tiposfichero}"  -->
+<!-- sizeLimit="#{campo.tamanofichero}"  -->
+<!-- validateContentType="true" accept=".pdf,.jpg,.jpeg,.png" -->
+
+											</div>
+						       		</p:repeat>
+					       		</div>
+					</p:fieldset>
+					</div>
+					<!-- ENCUESTA -->
+					<div class="row" >
+					<p:fieldset rendered="#{bloque.codigoPlantilla eq Cons.PLANTILLA_ENCUESTA_SATISFACCION}"  style="margin-bottom:20px;">
+								<div class="row" >
+						       		<p:repeat value="#{bloque.campos}" var="campo" varStatus="estado" offset="#{estado.index}" >
+						       			<div class="col-12">
+						       				<p:outputLabel value="#{campo.etiqueta}" class="bold-primary"/>
+
+										        <p:selectOneRadio  value="#{campo.respuesta}" layout="responsive" columns="1" rendered="#{campo.codigoTipoCampo eq Cons.VALORES_TIPOS_CAMPO_RADIO}">
+											        <f:selectItems value="#{campo.listaopciones}" />
+											    </p:selectOneRadio>											    
+
+											</div>
+						       		</p:repeat>
+					       		</div>
+					</p:fieldset>
+					</div>
+					<p:separator class="line-spacer" />
+				</p:repeat>
+				
+				<p:commandButton value="Enviar"  action="#{cargarFormularioBBean.guardar}"  ajax="false" />
+
+</h:form>				
+		</ui:define>
+	</ui:composition>
+</body>
+</html>

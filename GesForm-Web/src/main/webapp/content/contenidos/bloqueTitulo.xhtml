@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui" xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<ui:composition template="/content/defaultPageLayout.xhtml">
+
+
+		<ui:define name="content">
+
+			<h:form id="f2">
+
+				<p:dialog header="Bloque título" widgetVar="dlgAlta" resizable="false" id="dialog" modal="true" width="800" >
+					<h:panelGrid id="panelGridAlta" columns="4" styleClass="tablacustom dialogcustom" >
+					
+						<p:outputLabel for="valorcampo" value="Título del formulario: " />
+						<p:inputTextarea id="valorcampo" rows="5" cols="100" counter="display" maxlength="4000" counterTemplate="{0} characters remaining." autoResize="false" />
+    					<br />
+    					<h:outputText id="display" />
+						
+						<p:spacer />
+						<p:spacer />
+
+					</h:panelGrid>
+					<f:facet name="footer">
+						<div style="float: right;">
+							<p:commandButton value="Cancelar" styleClass="botonCaronte" action="#{mtoContenidosBBean.irAContenidos(mtoContenidosBBean.formularioBuscar.ide)}"  icon="pi pi-times" />
+							<p:commandButton value="Guardar"  
+							action="#{mtoContenidosBBean.anadirPlantilla(mtoContenidosBBean.formularioBuscar.ide,Cons.PLANTILLA_TITULO)}" icon="pi pi-save" />
+						</div>
+						<div class="clear" />
+					</f:facet>
+				</p:dialog>
+			</h:form>
+
+		</ui:define>
+	</ui:composition>
+</ui:composition>
+

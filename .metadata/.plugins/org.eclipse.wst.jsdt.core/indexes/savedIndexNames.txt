@@ -1,0 +1,9 @@
+INDEX VERSION 1.4+C:\WS_TFG - GitHub2\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+3145977308.index
+1995363770.index
+2624814024.index
+1127595243.index
+2693810418.index
+3850209059.index
+508206613.index
+3464042974.index

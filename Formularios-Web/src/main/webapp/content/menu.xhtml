@@ -1,0 +1,25 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+<p:separator class="line-separator" />
+<p:menubar id="menu" class="container">
+
+	<p:submenu label="Formularios" action="#{mtoFormulariosBBean.irAFormularios}">
+		<p:menuitem value="Formularios" action="#{mtoFormulariosBBean.irAFormularios}"  />
+	</p:submenu>
+
+	<p:submenu label="Envíos" />
+<!-- 		<p:menuitem value="Tipos de sociedades" action="#{mtoTiposSociedadBBean.irA}" rendered="#{loginBBean.tienePermisos(Cons.CLAVE_ID_OPERACION_TIPOS_SOCIEDAD)}" /> -->
+<!-- 		<p:menuitem value="Tipos" id="pa1" action="#{mtoTiposBBean.irA}" rendered="#{loginBBean.tienePermisos(Cons.CLAVE_ID_OPERACION_TIPOS)}" /> -->
+<!-- 		<p:menuitem value="Parámetros generales" action="#{mtoParametrosGeneralesBBean.irA}" rendered="#{loginBBean.tienePermisos(Cons.CLAVE_ID_OPERACION_ADMINISTRACION_PARAMETROS)}" /> -->
+<!-- 	</p:submenu> -->
+	
+	<p:submenu label="Usuarios" />
+	
+
+
+</p:menubar>
+
+
+<p:separator class="line-none" />
+
+
+</html>

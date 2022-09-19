@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui" xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<ui:composition template="/content/defaultPageLayout.xhtml">
+
+		<ui:define name="content">
+			<p:separator class="line-none" />
+			<p:panel id="panelError" header="Error"  style="width: 60%;margin: 50px auto 50px auto;">
+				<div class="row d-flex justify-content-start align-items-end m-3">
+					<div class="col-2 justify-content-end d-flex">
+						<i class="fas fa-bomb icon icon_cabecera icon_large"></i>
+					</div>
+					<div class="col-10">
+						<label id="j_idt62" class="ui-outputlabel ui-widget bold-primary-dark">Ups!! Se ha producido un error.</label>
+					</div>
+				</div>
+			</p:panel>
+
+		</ui:define>
+	</ui:composition>
+</ui:composition>

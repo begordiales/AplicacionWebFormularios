@@ -1,0 +1,362 @@
+<?xml version="1.0"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui" xmlns:ui="http://java.sun.com/jsf/facelets">
+	<ui:param name="contador" value="1"/>
+	<ui:composition template="/content/defaultPageLayout.xhtml">
+
+
+		<ui:define name="content">
+		<div class="d-flex justify-content-end">
+			<p:commandButton value="Volver" action="#{mtoContenidosBBean.volver}" title="Volver" />
+		</div>
+ 
+		    <h:form id="menu">  			
+			    <p:growl id="messages" showDetail="false"/>
+			    <p:commandButton id="titulo" value="AÑADIR TITULO" actionListener="#{mtoContenidosBBean.nuevoContenido}" class="secondary-button" oncomplete="PF('dlgAlta').show();"/>
+			    <p:commandButton id="subtitulo" value="AÑADIR SUBTITULO" type="button" class="secondary-button" />
+			    <p:commandButton id="dynaButton" value="AÑADIR PLANTILLA" type="button" class="secondary-button"  icon="pi pi-caret-down" />
+			    <p:menu overlay="true" trigger="dynaButton" my="left top" at="left bottom">
+			        <p:menuitem value="Datos personales" action="#{mtoContenidosBBean.anadirPlantilla(mtoContenidosBBean.formularioBuscar.ide,Cons.PLANTILLA_DATOS_PERSONALES)}" update=":formDatosForm"/>
+<!-- 			        <p:menuitem value="Datos solicitante" action="#{mtoContenidosBBean.anadirPlantilla(mtoContenidosBBean.formularioBuscar.ide,Cons.PLANTILLA_SOLICITANTE)}" update=":formDatosForm"/> -->
+<!-- 				    <p:menuitem value="Datos notificación" action="#{mtoContenidosBBean.anadirPlantilla(mtoContenidosBBean.formularioBuscar.ide,Cons.PLANTILLA_NOTIFICACION)}" update=":formDatosForm" /> -->
+<!-- 				    <p:menuitem value="Datos representante" action="#{mtoContenidosBBean.prueba}"  ajax="false"/> -->
+				   	<p:menuitem value="Protección de datos" action="#{mtoContenidosBBean.anadirPlantilla(mtoContenidosBBean.formularioBuscar.ide,Cons.PLANTILLA_RGPD)}"  ajax="false"/>
+				   	<p:menuitem value="Adjuntar ficheros" action="#{mtoContenidosBBean.anadirPlantilla(mtoContenidosBBean.formularioBuscar.ide,Cons.PLANTILLA_FILE)}"  ajax="false"/>
+<!-- 				    <p:menuitem value="Firma" action="#{mtoContenidosBBean.prueba}"  ajax="false"/> -->
+<!-- 				    <p:menuitem value="Captcha" action="#{mtoContenidosBBean.prueba}"  ajax="false"/> -->
+				    <p:menuitem value="Encuesta satisfacción web" action="#{mtoContenidosBBean.anadirPlantilla(mtoContenidosBBean.formularioBuscar.ide,Cons.PLANTILLA_ENCUESTA_SATISFACCION)}" update=":formDatosForm"/>
+			    </p:menu>
+			    <p:commandButton id="bloque" value="AÑADIR BLOQUE"  actionListener="#{mtoContenidosBBean.nuevoBloque}" class="secondary-button" oncomplete="PF('dlgAltaBloque').show();" update=":formdialog2:dialogBloque"/>
+			    <p:commandButton id="campo" value="AÑADIR CAMPO" actionListener="#{mtoContenidosBBean.nuevoCampo}" class="secondary-button" oncomplete="PF('dlgAltaCampo').show();" update=":formdialog3:dialogCampo"/>
+<!-- 			    <p:commandButton id="opcion" value="AÑADIR OPCION"  class="secondary-button" oncomplete="PF('dlgAltaOpcion').show();" update=":formdialog4:dialogOpcion"/> -->
+			    <p:commandButton id="separador" value="AÑADIR SEPARADOR" type="button" class="secondary-button"/>
+		    </h:form>
+			<p:separator class="line-spacer" />
+			<h:form id="formDatosForm" enctype="multipart/form-data">
+				<p:panel id="panelDatosForm" header="Datos formularios" toggleable="true" toggleSpeed="500" collapsed="false">
+<!-- 					<h:panelGrid columns="6" styleClass="tablacustom"> -->
+					 <p:panelGrid columns="4" columnClasses="ui-g-12 ui-md-2,ui-g-12 ui-md-4,ui-g-12 ui-md-2,ui-g-12 ui-md-4" layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+
+						<p:outputLabel value="Nombre:" class="bold-primary"/>
+						<p:outputLabel value="#{mtoContenidosBBean.formularioBuscar.nombre}" />
+<!-- 						<p:inputText id="nombreform" value="#{mtoContenidosBBean.formularioBuscar.nombre}" /> -->
+
+						<p:outputLabel value="URL:" class="bold-primary"/>
+						<p:outputLabel id="urlform" value="#{mtoContenidosBBean.formularioBuscar.url}" />
+
+
+						<p:outputLabel value="Departamento:" class="bold-primary"/>
+						<p:outputLabel id="departamentosform" value="#{mtoContenidosBBean.formularioBuscar.departamento.nombre}" />
+<!-- 						<p:spacer /> -->
+<!-- 						<p:spacer /> -->
+						<p:outputLabel value="Identificador formulario: " class="bold-primary"/>
+						<p:outputLabel value="#{mtoContenidosBBean.formularioBuscar.ide}" />
+
+						<p:outputLabel value="Fecha inicio:" class="bold-primary"/>
+						<p:outputLabel id="finiform" value="#{mtoContenidosBBean.formularioBuscar.fechaIniPub}" >
+							<f:convertDateTime type="date" pattern="dd-MM-yyyy"/>
+						</p:outputLabel>
+						<p:outputLabel value="Fecha fin:" class="bold-primary"/>
+						<p:outputLabel id="ffinform" value="#{mtoContenidosBBean.formularioBuscar.fechaFinPub}" >
+							<f:convertDateTime type="date" pattern="dd-MM-yyyy"/>
+						</p:outputLabel>
+					</p:panelGrid>
+				</p:panel>
+				<p:spacer height="20" />
+
+				<div id="contenido" width="800">
+				<table width="100%">
+				<p:repeat value="#{mtoContenidosBBean.contenidoBuscar.bloques}" var="bloque">
+				<tr>
+				<td width="95%">
+					<!--  BLOQUE TITULO -->
+					<p:fieldset  rendered="#{bloque.codigoPlantilla eq Cons.PLANTILLA_TITULO}"  style="margin-bottom:20px;">
+						<div class="row" >
+							<p:repeat value="#{bloque.campos}" var="campo" varStatus="estado" offset="#{estado.index}" >
+								<div class="col-10">
+							    	<h:outputText value="#{campo.valor}" class="bold-primary" />
+							    </div>
+							   
+							</p:repeat>
+						 </div>
+					</p:fieldset>
+					
+					<!--  BLOQUE RGPD -->
+					<p:fieldset   rendered="#{bloque.codigoPlantilla eq Cons.PLANTILLA_RGPD}"  style="margin-bottom:20px;">
+						<div class="row" >
+							<p:dataTable var="campo" value="#{bloque.campos}"  editable="true"  >
+								<p:ajax event="rowEdit" listener="#{mtoContenidosBBean.modificarCampo(campo)}" />
+        						<p:ajax event="rowEditCancel" listener="#{mtoContenidosBBean.borrarCampo(campo)}" />
+        						<f:facet name="header">#{bloque.nombre}</f:facet>						
+								<p:column width="20%">
+									<h:outputText value="#{campo.etiqueta}" />
+				            	</p:column>
+				            	<p:column>
+									<p:cellEditor>
+		               					<f:facet name="output"><h:outputText value="#{campo.valor}" /></f:facet>
+					                	<f:facet name="input"><p:inputText value="#{campo.valor}" style="width:90%"/></f:facet>
+					            	</p:cellEditor>
+				            	</p:column>
+								   
+								<p:column style="width:35px">
+	            					<p:rowEditor />
+	        					</p:column>
+							</p:dataTable>
+						 </div>
+					</p:fieldset>
+				
+				<!-- DOS COLUMNAS -->
+
+					<p:fieldset  legend="#{bloque.nombre}" rendered="#{bloque.columnas eq Cons.DOS_COLUMNAS }"  style="margin-bottom:20px;">
+								<div class="row" >
+						       		<p:repeat value="#{bloque.campos}" var="campo" varStatus="estado" offset="#{estado.index}" >
+<!-- 						       			<div class="col-2"> -->
+<!-- 						       				<p:outputLabel  value="#{campo.etiqueta} *" class="bold-primary" style="display: block" rendered="#{campo.obligatorio == 1}"/> -->
+<!-- 											<p:outputLabel  value="#{campo.etiqueta}" class="bold-primary" style="display: block" rendered="#{campo.obligatorio == 0}"/> -->
+<!-- 						       			</div> -->
+						       				<div class="col-6">
+						       				<p:outputLabel  value="#{campo.etiqueta} *" class="bold-primary" style="display: block" rendered="#{campo.obligatorio == 1 and campo.codigoTipoCampo ne Cons.VALORES_TIPOS_CAMPO_LITERAL}"/>
+											<p:outputLabel  value="#{campo.etiqueta}" class="bold-primary" style="display: block" rendered="#{campo.obligatorio == 0 and campo.codigoTipoCampo ne Cons.VALORES_TIPOS_CAMPO_LITERAL}"/>
+											<p:outputLabel  value="#{campo.valor}" class="bold-primary" style="display: block" rendered="#{campo.codigoTipoCampo eq Cons.VALORES_TIPOS_CAMPO_LITERAL}"/>
+												<p:inputText value="" 	maxlength="#{campo.tamano}" size="#{campo.ancho}" style="width:80%" rendered="#{campo.codigoTipoCampo eq Cons.VALORES_TIPOS_CAMPO_TEXTO  or campo.codigoTipoCampo eq Cons.VALORES_TIPOS_CAMPO_NUMERICO}"/>
+												<p:calendar value="" locale="es" showOn="button" navigator="true" pattern="dd-MM-yyyy" onkeypress="return permite(event, 'none')"  rendered="#{campo.codigoTipoCampo eq Cons.VALORES_TIPOS_CAMPO_FECHA}"/>
+												
+										        <p:selectOneMenu  value="" style="width:125px" rendered="#{campo.codigoTipoCampo eq Cons.VALORES_TIPOS_CAMPO_SELECT}">
+										            <f:selectItem itemLabel="Seleccione..." itemValue="-1" />
+										            <f:selectItems value="#{campo.listaopciones}"  />
+										        </p:selectOneMenu>
+										        <p:selectOneRadio  value="" layout="responsive" columns="3" rendered="#{campo.codigoTipoCampo eq Cons.VALORES_TIPOS_CAMPO_RADIO}">
+											        <f:selectItems value="#{campo.listaopciones}" />
+											    </p:selectOneRadio>											    
+											    <p:selectManyCheckbox columns="1" rendered="#{campo.codigoTipoCampo eq Cons.VALORES_TIPOS_CAMPO_CHECK}">
+													<f:selectItems value="#{campo.listaopciones}" var="car" itemLabel="#{label}" itemValue="#{value}" />
+												</p:selectManyCheckbox>
+												
+												<p:fileUpload label="Examinar" mode="advanced" dragDropSupport="true" rendered="#{campo.codigoTipoCampo eq Cons.VALORES_TIPOS_CAMPO_FILE}"/>
+<!-- 												<p:outputLabel  value="MOSTRAR LAS LIMITACIONES DE LOS FICHEROS" class="bold-primary"/> -->
+        
+											</div>
+						       		</p:repeat>
+					       		</div>
+					</p:fieldset>
+
+					<!-- UNA COLUMNA -->
+					<p:fieldset legend="#{bloque.nombre}" rendered="#{bloque.columnas eq Cons.UNA_COLUMNA}"  style="margin-bottom:20px;">
+<!-- 								<div class="row" > -->
+						       		<p:repeat value="#{bloque.campos}" var="campo" varStatus="estado" offset="#{estado.index}" >
+<!-- 						       			<div class="col-3"> -->
+<!-- 						       				<p:outputLabel value="#{campo.etiqueta}" class="bold-primary"/> -->
+<!-- 						       			</div> -->
+						       				<div class="col-12">
+												<p:outputLabel  value="#{campo.etiqueta} *" class="bold-primary" style="display: block" rendered="#{campo.obligatorio == 1 and campo.codigoTipoCampo ne Cons.VALORES_TIPOS_CAMPO_LITERAL}"/>
+												<p:outputLabel  value="#{campo.etiqueta}" class="bold-primary" style="display: block" rendered="#{campo.obligatorio == 0 and campo.codigoTipoCampo ne Cons.VALORES_TIPOS_CAMPO_LITERAL}"/>
+												<p:outputLabel  value="#{campo.valor}" class="bold-primary" style="display: block" rendered="#{campo.codigoTipoCampo eq Cons.VALORES_TIPOS_CAMPO_LITERAL}"/>
+												<p:inputText value="" 	maxlength="#{campo.tamano}" style="width:80%" rendered="#{campo.codigoTipoCampo eq Cons.VALORES_TIPOS_CAMPO_TEXTO or campo.codigoTipoCampo eq Cons.VALORES_TIPOS_CAMPO_NUMERICO}"/>
+												<p:calendar value="" locale="es" showOn="button" navigator="true" pattern="dd-MM-yyyy" onkeypress="return permite(event, 'none')"   rendered="#{campo.codigoTipoCampo eq Cons.VALORES_TIPOS_CAMPO_FECHA}"/>
+												<p:selectOneMenu  value="" style="width:125px" rendered="#{campo.codigoTipoCampo eq Cons.VALORES_TIPOS_CAMPO_SELECT}">
+										            <f:selectItem itemLabel="Seleccione..." itemValue="-1" />
+										            <f:selectItems value="#{campo.listaopciones}"  />
+										        </p:selectOneMenu>
+										        <p:selectOneRadio  value="" layout="responsive" columns="1" rendered="#{campo.codigoTipoCampo eq Cons.VALORES_TIPOS_CAMPO_RADIO}">
+											        <f:selectItems value="#{campo.listaopciones}" />
+											    </p:selectOneRadio>											    
+											    <p:selectManyCheckbox columns="1" rendered="#{campo.codigoTipoCampo eq Cons.VALORES_TIPOS_CAMPO_CHECK}">
+													<f:selectItems value="#{campo.listaopciones}" var="car" itemLabel="#{label}" itemValue="#{value}" />
+												</p:selectManyCheckbox>
+												<p:fileUpload  label="Examinar" mode="advanced" dragDropSupport="true"  rendered="#{campo.codigoTipoCampo eq Cons.VALORES_TIPOS_CAMPO_FILE}"/>
+<!-- 												<p:outputLabel  value="Tipos de ficheros permitidos: #{campo.tiposfichero}" class="bold-primary"/><br/> -->
+<!-- 												<p:outputLabel  value="Tamaño máx. ficheros: #{campo.tamanofichero} bytes" class="bold-primary"/><br/> -->
+<!-- 												<p:outputLabel  value="Número máx. ficheros: #{campo.numficheros}" class="bold-primary"/> -->
+												
+											</div>
+						       		</p:repeat>
+<!-- 					       		</div> -->
+					</p:fieldset>
+					
+					<p:fieldset legend="#{bloque.nombre}" rendered="#{bloque.codigoPlantilla eq Cons.PLANTILLA_ENCUESTA_SATISFACCION}"  style="margin-bottom:20px;">
+								<div class="row" >
+						       		<p:repeat value="#{bloque.campos}" var="campo" varStatus="estado" offset="#{estado.index}" >
+						       			<div class="col-12">
+						       				<p:outputLabel value="#{campo.etiqueta}" class="bold-primary"/>
+												<p:inputText value="" 	maxlength="#{campo.tamano}" size="#{campo.ancho}" rendered="#{campo.codigoTipoCampo eq Cons.VALORES_TIPOS_CAMPO_TEXTO}"/>
+												<p:calendar value="" locale="es" showOn="button" navigator="true" pattern="dd-MM-yyyy" onkeypress="return permite(event, 'none')"   rendered="#{campo.codigoTipoCampo eq Cons.VALORES_TIPOS_CAMPO_FECHA}"/>
+												<p:selectOneMenu  value="" style="width:125px" rendered="#{campo.codigoTipoCampo eq Cons.VALORES_TIPOS_CAMPO_SELECT}">
+										            <f:selectItem itemLabel="Seleccione..." itemValue="-1" />
+										            <f:selectItems value="#{campo.listaopciones}"  />
+										        </p:selectOneMenu>
+										        <p:selectOneRadio  value="" layout="responsive" columns="1" rendered="#{campo.codigoTipoCampo eq Cons.VALORES_TIPOS_CAMPO_RADIO}">
+											        <f:selectItems value="#{campo.listaopciones}" />
+											    </p:selectOneRadio>											    
+											    <p:selectManyCheckbox columns="1" rendered="#{campo.codigoTipoCampo eq Cons.VALORES_TIPOS_CAMPO_CHECK}">
+													<f:selectItems value="#{campo.listaopciones}" var="car" itemLabel="#{label}" itemValue="#{value}" />
+												</p:selectManyCheckbox>
+											</div>
+						       		</p:repeat>
+					       		</div>
+					</p:fieldset>
+				</td>
+				<td width="2%">
+					<i class="pi pi-pencil colorIcono"></i>
+				</td>
+				<td width="2%">
+					<i class="pi pi-minus-circle colorIcono" ></i>
+				</td>
+					
+				</tr>				
+				</p:repeat>
+</table>
+
+				</div>
+
+			</h:form>
+			
+			<h:form id="formdialog">
+				
+				<p:dialog header="Bloque título" widgetVar="dlgAlta" resizable="false" id="dialog" modal="true" width="800" >
+					<h:panelGrid id="panelGridAlta" columns="1" styleClass="tablacustom dialogcustom" >
+					
+						<p:outputLabel for="valorcampo" value="Título del formulario: " />
+						<p:inputTextarea value="#{mtoContenidosBBean.valorCampo}"  id="valorcampo" rows="4" cols="100" counter="display" maxlength="4000" counterTemplate="{0} characters remaining." autoResize="false" />
+    					<br />
+    					<h:outputText id="display" />
+						
+						<p:spacer />
+						<p:spacer />
+
+					</h:panelGrid>
+					<f:facet name="footer">
+						<div style="float: right;">
+							<p:commandButton value="Cancelar" action="#{mtoContenidosBBean.irAContenidos(mtoContenidosBBean.formularioBuscar.ide)}"  icon="pi pi-times" />
+							<p:commandButton value="Guardar"  actionListener="#{mtoContenidosBBean.anadirPlantilla(mtoContenidosBBean.formularioBuscar.ide,Cons.PLANTILLA_TITULO)}" icon="pi pi-save"
+								update=":formDatosForm, growl" oncomplete="PF('dlgAlta').hide();" />
+						</div>
+						<div class="clear" />
+					</f:facet>
+				</p:dialog>
+				</h:form>
+				<h:form  id="formdialog2">
+				<p:dialog header="Añadir/Modificar bloque" widgetVar="dlgAltaBloque" resizable="false" id="dialogBloque" modal="true" width="800" >
+					<h:panelGrid id="panelGridAltaBloque" columns="2" styleClass="tablacustom dialogcustom" >
+						<p:outputLabel value="Nombre/etiqueta *: " />
+						<p:inputText value="#{mtoContenidosBBean.formularioBloqueAnadir.nombre}" maxlength="50" colspan="3"   />
+						<p:outputLabel value="Descripción: " />
+						<p:inputTextarea value="#{mtoContenidosBBean.formularioBloqueAnadir.descripcion}"   rows="4" cols="100" counter="displayBloque" maxlength="100" counterTemplate="{0} characters remaining." autoResize="false" />
+						<br />
+    					<h:outputText id="displayBloque" />
+						<p:outputLabel for="orden" value="Orden: " />
+                		<p:inputNumber id="orden" value="#{mtoContenidosBBean.formularioBloqueAnadir.orden}" minValue="0" decimalPlaces="0" size="25"/>
+						<p:outputLabel value="Número de columnas: " />
+						<p:selectOneRadio id="columnas" value="#{mtoContenidosBBean.formularioBloqueAnadir.columnas}">
+				            <f:selectItem itemLabel="1" itemValue="1"/>
+				            <f:selectItem itemLabel="2" itemValue="2"/>
+				        </p:selectOneRadio>
+    					
+						<p:spacer />
+						<p:spacer />
+
+					</h:panelGrid>
+					
+					<f:facet name="footer">
+						<div style="float: right;">
+							<p:commandButton value="Cancelar" onclick="PF('dlgAltaBloque').hide()"  icon="pi pi-times" />
+							<p:commandButton value="Guardar"  actionListener="#{mtoContenidosBBean.anadirBloque(mtoContenidosBBean.formularioBuscar.ide)}" icon="pi pi-save"
+								update=":formDatosForm, growl" oncomplete="PF('dlgAltaBloque').hide();" />
+						</div>
+						<div class="clear" />
+					</f:facet>
+
+				</p:dialog>
+			</h:form>
+			
+
+
+			<h:form  id="formdialog3">
+				<p:dialog header="Añadir/Modificar campo" widgetVar="dlgAltaCampo" resizable="false" id="dialogCampo" modal="true" width="800" >
+<!-- 				<p:panel id="todo" styleClass="panelAnadirCampo"> -->
+				<h:panelGrid id="panelGridAltaCampo" columns="2" styleClass="tablacustom dialogcustom"  >
+					<p:outputLabel value="Tipo de campo *:" />
+						<p:selectOneMenu  id="tipocampo" value="#{mtoContenidosBBean.formularioCampoAnadir.idTipocampo}" style="width:220px">
+							<p:ajax listener="#{mtoContenidosBBean.valueChanged}" update=":formdialog3:panelGridAltaCampo" />
+							<f:selectItem itemLabel="Seleccione..." itemValue="-1" />
+							<f:selectItems value="#{mtoContenidosBBean.listTiposCampo}" />
+						</p:selectOneMenu>
+					<p:outputLabel value="Bloque *:" />
+					<p:selectOneMenu  id="bloque"	value="#{mtoContenidosBBean.formularioCampoAnadir.idBloque}"  style="width:220px">
+							<f:selectItem itemLabel="Seleccione..." itemValue="-1" />
+							<f:selectItems value="#{mtoContenidosBBean.listBloques}" />
+					</p:selectOneMenu>
+					<p:outputLabel value="Nombre *: " />
+					<p:inputText value="#{mtoContenidosBBean.formularioCampoAnadir.nombre}" maxlength="50"   />
+					<p:outputLabel value="Etiqueta *: " />
+					<p:inputText value="#{mtoContenidosBBean.formularioCampoAnadir.etiqueta}" maxlength="100"   />
+					
+						<p:outputLabel value="Obligatorio: " />
+						<p:selectOneRadio id="obligatorio" value="#{mtoContenidosBBean.formularioCampoAnadir.obligatorio}">
+				            <f:selectItem itemLabel="Sí" itemValue="1"/>
+				            <f:selectItem itemLabel="No" itemValue="0"/>
+				        </p:selectOneRadio>
+				        <p:outputLabel for="tamano" value="Máximo caracteres: " />
+                		<p:inputNumber id="tamano" value="#{mtoContenidosBBean.formularioCampoAnadir.tamano}" size="10"  minValue="0" decimalPlaces="0"/>
+                		<p:outputLabel for="ordenCampo" value="Orden: " />
+                		<p:inputNumber id="ordenCampo" value="#{mtoContenidosBBean.formularioCampoAnadir.orden}" minValue="0" decimalPlaces="0" size="10"/>
+                		
+<!-- 				</h:panelGrid> -->
+<!-- 				<h:panelGrid id="panelGridAltaOpcion" columns="5" styleClass="tablacustom dialogcustom" > -->
+					<p:outputLabel value="Valor : " rendered="#{mtoContenidosBBean.muestraCamposLiteral}"/>
+						<p:inputTextarea id="areaValor" rendered="#{mtoContenidosBBean.muestraCamposLiteral}" value="#{mtoContenidosBBean.formularioCampoAnadir.valor}"  rows="4" cols="100" counter="displayBloque3" maxlength="4000" counterTemplate="{0} characters remaining." autoResize="false" />
+						<br />
+    					<h:outputText id="displayBloque3" rendered="#{mtoContenidosBBean.muestraCamposLiteral}"/>
+						<p:dataTable id="tablaOpciones" var="opcion" value="#{mtoContenidosBBean.listaOpciones}"  editable="true" rendered="#{mtoContenidosBBean.muestraCamposOpciones}" >
+									<p:ajax event="rowEdit" listener="#{mtoContenidosBBean.anadirOpcion(opcion)}" />
+	        						<p:ajax event="rowEditCancel" listener="#{mtoContenidosBBean.borrarOpcion(opcion)}" />
+	        					
+	        						<f:facet name="header">	
+
+	        						<p:column>
+	        							<p:inputText  maxlength="2"  value="#{mtoContenidosBBean.valorOpcion}"/>
+	        						</p:column>		
+	        						<p:column>
+	        							<p:inputText maxlength="50"  value="#{mtoContenidosBBean.labelOpcion}" />
+	        						</p:column>	
+	        						<p:column  style="width:35px">
+	        						<p:commandButton icon="pi pi-plus-circle"   actionListener="#{mtoContenidosBBean.anadirOpcionLista()}" ajax="true" update=":formdialog3:tablaOpciones" />
+	        						</p:column>
+
+	        						</f:facet>	
+									<p:column headerText="Valor">
+										<p:cellEditor>
+			               					<f:facet name="output"><h:outputText value="#{opcion.value}" /></f:facet>
+						                	<f:facet name="input"><p:inputText value="#{opcion.value}" style="width:90%"/></f:facet>
+						            	</p:cellEditor>
+					            	</p:column>
+					            	<p:column headerText="Etiqueta">
+										<p:cellEditor>
+			               					<f:facet name="output"><h:outputText value="#{opcion.label}" /></f:facet>
+						                	<f:facet name="input"><p:inputText value="#{opcion.label}" style="width:90%"/></f:facet>
+						            	</p:cellEditor>
+					            	</p:column>
+									   
+									<p:column style="width:35px">
+		            					<p:rowEditor />
+		        					</p:column>
+								</p:dataTable>
+					</h:panelGrid>
+<!-- 					</p:panel> -->
+					<f:facet name="footer"> 
+						<div style="float: right;">
+							<p:commandButton value="Cancelar" onclick="PF('dlgAltaCampo').hide()"  icon="pi pi-times" />
+							<p:commandButton value="Guardar"  actionListener="#{mtoContenidosBBean.anadirCampo(mtoContenidosBBean.formularioBuscar.ide)}" icon="pi pi-save" update=":formDatosForm, growl" oncomplete="PF('dlgAltaCampo').hide();" />
+						</div>
+						<div class="clear" />
+					</f:facet>
+				</p:dialog>
+			</h:form>
+
+						<p:spacer />
+						<p:spacer />
+
+					
+		</ui:define>
+	</ui:composition>
+</ui:composition>
+

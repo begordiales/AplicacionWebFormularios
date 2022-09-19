@@ -1,0 +1,117 @@
+<?xml version="1.0"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui" xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<ui:composition template="/content/defaultPageLayout.xhtml">
+
+
+		<ui:define name="content">
+		<div class="d-flex justify-content-end">
+			<p:commandButton value="Volver" action="#{mtoEnviosBBean.volver}" title="Volver" />
+		</div>
+		
+		<h:form id="f2">
+		
+
+			<div id="contenido">
+				<table>
+				<p:repeat value="#{mtoEnviosBBean.contenidoBuscar.bloques}" var="bloque">
+				<tr>
+				<td>
+					<!--  BLOQUE TITULO -->
+					<p:fieldset  rendered="#{bloque.codigoPlantilla eq Cons.PLANTILLA_TITULO}"  style="margin-bottom:20px;">
+						<div class="row" >
+							<p:repeat value="#{bloque.campos}" var="campo" varStatus="estado" offset="#{estado.index}" >
+								<div class="col-10">
+							    	<h:outputText value="#{campo.valor}" class="bold-primary" />
+							    </div>
+							   
+							</p:repeat>
+						 </div>
+					</p:fieldset>
+					
+					<!--  BLOQUE RGPD -->
+					<p:fieldset   rendered="#{bloque.codigoPlantilla eq Cons.PLANTILLA_RGPD}"  style="margin-bottom:20px;">
+						<div class="row" >
+							<p:dataTable var="campo" value="#{bloque.campos}" >
+        						<f:facet name="header">#{bloque.nombre}</f:facet>						
+								<p:column width="20%">
+									<h:outputText value="#{campo.etiqueta}" />
+				            	</p:column>
+				            	<p:column>
+		               				<h:outputText value="#{campo.valor}" />
+				            	</p:column>
+
+							</p:dataTable>
+						 </div>
+					</p:fieldset>
+				
+
+
+					<p:fieldset rendered="#{bloque.columnas ne Cons.CERO_COLUMNAS and bloque.codigoPlantilla ne Cons.PLANTILLA_ENCUESTA_SATISFACCION}" legend="#{bloque.nombre}"  style="margin-bottom:20px;">
+								<div class="row" >
+						       		<p:repeat value="#{bloque.campos}" var="campo" varStatus="estado" offset="#{estado.index}" >
+						       			<div class="col-2">
+						       				<p:outputLabel value="#{campo.etiqueta}" class="bold-primary"/>
+						       			</div>
+						       				<div class="col-10">
+												<p:outputLabel value="#{campo.respuesta}" 	maxlength="#{campo.tamano}"  rendered="#{campo.codigoTipoCampo eq Cons.VALORES_TIPOS_CAMPO_TEXTO or campo.codigoTipoCampo eq Cons.VALORES_TIPOS_CAMPO_NUMERICO}"/>
+												<p:calendar value="#{campo.respuesta}" locale="es" showOn="button" navigator="true" pattern="dd-MM-yyyy" onkeypress="return permite(event, 'none')"  rendered="#{campo.codigoTipoCampo eq Cons.VALORES_TIPOS_CAMPO_FECHA}"/>
+												 <p:selectOneMenu  disabled="true" value="#{campo.respuesta}" style="width:125px" rendered="#{campo.codigoTipoCampo eq Cons.VALORES_TIPOS_CAMPO_SELECT}">
+										            <f:selectItem itemLabel="Seleccione..." itemValue="-1" />
+										            <f:selectItems value="#{campo.listaopciones}"  />
+										        </p:selectOneMenu>
+										        <p:selectOneRadio  disabled="true" value="#{campo.respuesta}" layout="responsive" columns="3" rendered="#{campo.codigoTipoCampo eq Cons.VALORES_TIPOS_CAMPO_RADIO}">
+											        <f:selectItems value="#{campo.listaopciones}" />
+											    </p:selectOneRadio>											    
+											    <p:selectManyCheckbox disabled="true" value="#{campo.respuesta}" columns="1" rendered="#{campo.codigoTipoCampo eq Cons.VALORES_TIPOS_CAMPO_CHECK}">
+													<f:selectItems value="#{campo.listaopciones}" var="car" itemLabel="#{label}" itemValue="#{value}" />
+												</p:selectManyCheckbox>
+        
+													
+<!-- 												<p:commandButton value="Bajar archivo" icon="pi pi-arrow-down" styleClass="ui-button-outlined" rendered="#{campo.codigoTipoCampo eq Cons.VALORES_TIPOS_CAMPO_FILE}"> -->
+<!--             										<p:fileDownload value="#{campo.respuesta}"/> -->
+<!--        											 </p:commandButton> -->
+       											 
+       											 <p:commandButton actionListener="#{mtoEnviosBBean.descargarFichero(campo.respuesta)}"
+													icon="pi pi-arrow-down" value="Descargar"
+													rendered="#{campo.codigoTipoCampo eq Cons.VALORES_TIPOS_CAMPO_FILE}" ajax="false" styleClass="ui-button-outlined" />
+												 <p:outputLabel value="#{campo.respuesta}" rendered="#{campo.codigoTipoCampo eq Cons.VALORES_TIPOS_CAMPO_FILE}"/>
+        
+											</div>
+						       		</p:repeat>
+					       		</div>
+					</p:fieldset>
+					
+					<!-- ENCUESTA -->
+					<div class="row" >
+					<p:fieldset rendered="#{bloque.codigoPlantilla eq Cons.PLANTILLA_ENCUESTA_SATISFACCION}"  style="margin-bottom:20px;">
+								<div class="row" >
+						       		<p:repeat value="#{bloque.campos}" var="campo" varStatus="estado" offset="#{estado.index}" >
+						       			<div class="col-12">
+						       				<p:outputLabel value="#{campo.etiqueta}" class="bold-primary"/>
+
+										        <p:selectOneRadio disabled="true" value="#{campo.respuesta}" layout="responsive" columns="1" rendered="#{campo.codigoTipoCampo eq Cons.VALORES_TIPOS_CAMPO_RADIO}">
+											        <f:selectItems value="#{campo.listaopciones}" />
+											    </p:selectOneRadio>											    
+
+											</div>
+						       		</p:repeat>
+					       		</div>
+					</p:fieldset>
+					</div>
+
+					
+				</td>
+					
+				</tr>				
+				</p:repeat>
+</table>
+
+				</div>
+			</h:form>
+
+		</ui:define>
+	</ui:composition>
+</ui:composition>
+

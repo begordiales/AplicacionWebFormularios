@@ -1,0 +1,329 @@
+.tablacustom {
+	width: 100%;
+	border-collapse: inherit !important;
+}
+
+.tablacustom-border {
+	width: 100%;
+	border: 5px solid #c8c8c8;
+}
+
+/* .tablacustom td { */
+/* 	width: 25%; */
+/* } */
+
+.bold {
+	font-weight: bold;
+}
+
+.custom_login_error {
+	color: #fff;
+	background-color: #ef5350;
+	border-color: #ef5350;
+	width: 100%;
+	margin-top: 9px;
+}
+
+.custom_login_error_texto {
+	font-weight: normal;
+	font-size: 13px;
+	line-height: 45px;
+}
+
+/* label focus color */
+.input-field input:focus+label {
+	color: var(--color-primary) !important;
+}
+
+/* label underline focus color */
+.row .input-field input:focus {
+	border-bottom: 1px solid var(--color-primary) !important;
+	box-shadow: 0 1px 0 0 var(--color-primary) !important;
+}
+
+.titulo_login_custom {
+	font-family: 'latoregular', 'Trebuchet MS', Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	text-align: center;
+	width: 100%;
+	font-size: 18px;
+}
+
+.titulo_header_custom {
+	color: var(--color-primary-dark);
+	font-weight: bold;
+	text-align: center;
+	text-valign: center;
+	font-size: 1.4rem;
+	margin-left: 25px;
+}
+
+.texto_form_login {
+	font-family: 'latoregular', 'Trebuchet MS', Arial, Helvetica, sans-serif;
+	padding-left: 5px;
+	font-weight: bold;
+}
+
+.cabecera_cip_formulario {
+	background-color: green;
+	color: white;
+/* 	font-size: 1.4rem; */
+	font-size: 18px;
+	font-weight: bold;
+	border-radius: 10px;
+	text-align: center;
+	text-valign: center;
+	
+}
+
+.tituloFormulario {
+	color: var(--color-primary);
+	font-weight: bold;
+	text-align: center;
+	text-valign: center;
+	font-size: 1.4rem;
+	/*margin-left: 25px;*/
+	font-size: 16px;
+	width: 100%;
+	display: block;
+}
+
+.fieldsetTitulo {
+	border: 0px !important;
+	background-color: #ff0000;
+	color: #333;
+	padding: .571em 1em
+}
+
+.icon_cabecera {
+	font-size: 1.25rem;
+	color: var(--color-primary-dark);
+}
+
+.icon_large {
+	font-size: 2rem;
+}
+
+.entorno {
+	color: var(--color-primary-dark);
+	font-size: 1rem;
+	font-family: font-family : 'latoregular', 'Trebuchet MS', Arial, Helvetica, sans-serif;;
+	margin-left: 10px;
+}
+
+.bold-primary {
+	color: var(--color-primary);
+	font-weight: bold;
+}
+
+.bold-primary-dark {
+	color: var(--color-primary-dark);
+	font-weight: bold;
+}
+
+.primary-dark {
+	color: var(--color-primary-dark) !important;
+}
+
+.primary {
+	color: var(--color-primary) !important;
+}
+
+.line-separator {
+	height: 3px;
+	background-color: var(--color-primary-dark);
+	width: 100%;
+	border: none !important;
+	margin: 0.5rem 0 0 0 !important;
+}
+
+.line-none {
+	border: none !important;
+}
+
+.line-spacer {
+	height: 3px;
+	background-color: #fff;
+	width: 100%;
+	border: none !important;
+	margin: 1rem 0 0 0 !important;
+}
+
+.colprimera {
+	width: 10% !important;
+}
+
+.columna14, .columna34 {
+	width: 20% !important;
+}
+
+.columna24, .columna44 {
+	width: 30% !important;
+}
+
+.overflow {
+	overflow-y: auto;
+	max-height: 400px;
+}
+
+.card-header {
+	background-color: var(--color-primary-light) !important;
+	color: var(--color-primary-dark) !important;
+}
+
+/* Estilos para situar el pie en el fondo */
+#supercontainer {
+	/* footer abajo */
+	min-height: 100%;
+	position: absolute;
+}
+
+#content {
+	min-height: 450px; /* 
+	/* footer abajo */
+	padding-bottom: 100px;
+}
+
+#footer {
+	/* footer abajo */
+	width: 98%;
+	position: absolute;
+	bottom: 0;
+	/*left: 0;*/
+}
+
+.pie {
+	font-size: 0.90rem;
+	min-height: 60px;
+}
+
+#header {
+	width: 100%;
+}
+
+.dialogcustom td>input, .dialogcustom textarea {
+	width: 90%;
+}
+
+.clear {
+	clear: both;
+}
+
+.icon-dark {
+	color: var(--color-primary-dark) !important;
+}
+
+.imagenPrincipal {
+	min-height: 520px;
+	opacity: 0.6;
+}
+
+.botondelgado .ui-button-text{
+	padding-top: 0.25em !important;
+	padding-bottom: 0.25em !important;
+}
+
+/* .botonmenulateral .ui-button-text{ */
+/* 	border: 1px var(--color-primary-dark);  */
+/* 	background: #FFFFFF; */
+/* 	color:var(--color-primary-dark); */
+/* 	padding-top: 0.25em !important; */
+/* 	padding-bottom: 0.25em !important; */
+/* } */
+
+
+.botonmenulateral .ui-button-text {
+	background-color: #FFFFFF;
+	/*color: var(--color-primary-dark2);*/
+/* 	color: var(--color-primary-dark); */
+	border: 1px solid var(--color-primary-dark);
+	font-size: 14px;
+	margin: 0;
+	margin-right: .1em;
+	outline: 0 none;
+	-moz-transition: background-color .3s;
+	-o-transition: background-color .3s;
+	-webkit-transition: background-color .3s;
+	transition: background-color .3s
+}
+
+.botonmenulateral .ui-button.ui-button-text-only .ui-button-text {
+	padding: .429em 1em
+}
+
+.botonmenulateral .ui-button-text.ui-state-hover {
+	background-color: var(--color-primary-dark);
+	border-color: var(--color-primary-dark);
+	color: #fff
+}
+.panelMasDetalle{
+	margin-bottom: 40px;
+}
+
+
+.botoneraMasMenos .ui-panel-content{
+	border: 1px solid #CCC !important;
+	border-radius: 3px;
+	border-top-width: 1px !important;
+	top: 30px;
+	position: relative;
+}
+
+.labelCalculo{
+	min-width: 115px;
+}
+
+.labelPorcentajeCalculo{
+	min-width: 37px;
+	text-align: right;
+}
+
+.labelForm{
+	font-size: 11px !important;
+	font-weight: bold;
+	color: var(--color-primary-dark);
+	display: block;
+	margin-bottom: 0.1rem !important;
+}
+
+.pequenia{
+	width: 15% !important;
+}
+
+.larga{
+	width: 55% !important;
+}
+
+.estadoPresentado{
+//	background-color: #CEF6CE;
+//	color: #04B431;
+	padding: 2px;
+	border-radius: 2px;
+}
+.estadoError{
+//	background-color: #F6D7CE;
+//	color: #B40404;
+	padding: 2px;
+	border-radius: 2px;
+}
+.estadoIncidencia{
+//	background-color: #FBDEC9;
+//	color: #915D1B;
+	padding: 2px;
+	border-radius: 2px;
+}
+.estadoEnProceso{
+//	background-color: #ABC4F4;
+//	color: #0420B4;
+	padding: 2px;
+	border-radius: 2px;
+}
+.estadoAnulada{
+//	background-color: #C6BCCE;
+	color: #45374D;
+	padding: 2px;
+	border-radius: 2px;
+}
+
+
+

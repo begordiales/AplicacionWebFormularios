@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
+<body>
+	<ui:composition template="/content/defaultPageLayout.xhtml">
+		<ui:define class="container" name="content">
+		
+		
+<h:outputText value="#{cargarFormularioBBean.formulario}"></h:outputText>
+
+<!-- DOS COLUMNAS -->
+<h:form id="formrespuesta" prependId="false" acceptcharset="ISO-8859-1" enctype="multipart/form-data">
+		<p:repeat value="#{cargarFormularioBBean.contenidoBuscar.bloques}" var="bloque">
+				<!--  BLOQUE TITULO -->
+
+						       		<p:repeat value="#{bloque.campos}" var="campo" varStatus="estado" offset="#{estado.index}" >
+						       			<h:outputText value="#{campo.valor}"  rendered="#{bloque.codigoPlantilla eq Cons.PLANTILLA_TITULO}" class="tituloFormulario"/>
+						       		</p:repeat>
+
+				
+					
+
+					<!-- UNA COLUMNA -->
+					<div class="row" >
+					<p:fieldset legend="#{bloque.nombre}" rendered="#{bloque.columnas eq Cons.UNA_COLUMNA}" >
+								<div class="row" >
+						       		<p:repeat value="#{bloque.campos}" var="campo" varStatus="estado" offset="#{estado.index}" >
+						       				<div class="col-10">
+						       				<p:outputLabel  value="#{campo.etiqueta} *" class="labelForm" style="display: block" rendered="#{campo.obligatorio == 1}"/>
+											<p:outputLabel  value="#{campo.etiqueta}" class="labelForm" style="display: block" rendered="#{campo.obligatorio == 0}"/>
+												<p:inputText value="#{campo.respuesta}"	maxlength="#{campo.tamano}" style="width:80%" rendered="#{campo.codigoTipoCampo eq Cons.VALORES_TIPOS_CAMPO_TEXTO}"/>
+												<p:inputNumber value="#{campo.respuesta}"	maxlength="#{campo.tamano}"  minValue="0" decimalPlaces="0" style="width:80%" rendered="#{campo.codigoTipoCampo eq Cons.VALORES_TIPOS_CAMPO_NUMERICO}"/>
+												
+												<p:calendar value="#{campo.respuesta}" locale="es" showOn="button" navigator="true" pattern="dd-MM-yyyy" onkeypress="return permite(event, 'none')"  rendered="#{campo.codigoTipoCampo eq Cons.VALORES_TIPOS_CAMPO_FECHA}"/>
+												
+												<p:selectOneMenu  value="#{campo.respuesta}" style="width:125px" rendered="#{campo.codigoTipoCampo eq Cons.VALORES_TIPOS_CAMPO_SELECT}">
+										            <f:selectItem itemLabel="Seleccione..." itemValue="-1" />
+										            <f:selectItems value="#{campo.listaopciones}"  />
+										        </p:selectOneMenu>
+										        <p:selectOneRadio  value="#{campo.respuesta}" layout="responsive" columns="1" rendered="#{campo.codigoTipoCampo eq Cons.VALORES_TIPOS_CAMPO_RADIO}">
+											        <f:selectItems value="#{campo.listaopciones}" />
+											    </p:selectOneRadio>											    
+											    <p:selectManyCheckbox value="#{campo.respuesta}" columns="1" rendered="#{campo.codigoTipoCampo eq Cons.VALORES_TIPOS_CAMPO_CHECK}">
+													<f:selectItems value="#{campo.listaopciones}" var="car" itemLabel="#{label}" itemValue="#{value}" />
+												</p:selectManyCheckbox>
+												
+
+												
+													<p:fileUpload label="Examinar" auto="false" value="#{campo.respuesta}" mode="simple" skinSimple="true" multiple="false"	rendered="#{campo.codigoTipoCampo eq Cons.VALORES_TIPOS_CAMPO_FILE}"/>
+<!-- 													<p:fileUpload label="Examinar" auto="false" value="#{cargarFormularioBBean.file}" mode="simple" skinSimple="true" multiple="false"	rendered="#{campo.codigoTipoCampo eq Cons.VALORES_TIPOS_CAMPO_FILE}"/> -->
+<!-- 												<p:commandButton value="Subir documento" ajax="false" action="#{cargarFormularioBBean.upload}"/>  -->
+<!-- 												<p:fileUpload label="Examinar" auto="true" fileUploadListener="#{cargarFormularioBBean.handleFileUpload}" mode="simple" skinSimple="true" multiple="false"	rendered="#{campo.codigoTipoCampo eq Cons.VALORES_TIPOS_CAMPO_FILE}"/> -->
+
+											</div>
+						       		</p:repeat>
+					       		</div>
+					</p:fieldset>
+					</div>
+
+					<p:separator class="line-spacer" />
+				</p:repeat>
+				
+				<p:commandButton value="Enviar"  action="#{cargarFormularioBBean.guardar}"  ajax="false" />
+
+</h:form>				
+		</ui:define>
+	</ui:composition>
+</body>
+</html>
