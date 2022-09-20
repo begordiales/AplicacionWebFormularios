@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="buscar("/>
+		<item key="selection" value="RESPONSE_HEAD"/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="RESPONSE_HEAD"/>
+			<item value="NUMERO_RESULTADOS_CONSULTA"/>
+			<item value="RUTA_FICHEROS"/>
+			<item value="RUTA_INFORMES"/>
 			<item value="buscar("/>
 			<item value="buscar"/>
 			<item value="cons"/>
@@ -19,10 +23,6 @@
 			<item value="saveUploadedFile"/>
 			<item value="locale"/>
 			<item value="comprobarNif"/>
-			<item value="esNullVacio"/>
-			<item value="validar"/>
-			<item value="validarnif"/>
-			<item value="valida"/>
 		</list>
 		<list key="replacehistory">
 			<item value="Departamentos"/>

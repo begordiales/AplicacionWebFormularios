@@ -13914,3 +13914,5 @@ org.eclipse.jdt.core.JavaModelException: bin/src/main/java/es/juntaex/comun/cons
 2022-09-19 13:47:00,923 [Worker-16: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
 2022-09-19 13:47:00,923 [Worker-16: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\WS_TFG - GitHub2\GesForm-Web\src\test\resources
 2022-09-19 13:47:00,923 [Worker-16: Building] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Changed resources require a complete clean of filtered resources of GesForm-Web
+2022-09-19 13:47:00,923 [Worker-16: Building] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Executing resource filtering for GesForm-Web
+2022-09-19 13:47:00,927 [Worker-16: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
